@@ -4,7 +4,7 @@
 		<title>2021 Node.js 开发者报告</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- 引入 ECharts 文件 -->
+		<link rel="stylesheet" href="assets/system.css">
 		<script src="lib/echarts.min.js"></script>
 		<script>
 			function setChart(id, idx = 1, title, list) {
@@ -110,87 +110,19 @@
 				});
 			}
 		</script>
-		<style>
-			h3 {
-				padding: 7px 0px;
-				margin: 0px;
-				font-weight: 700;
-				font-size: 20px;
-				line-height: 28px;
-			}
-			h4 {
-				padding: 7px 0px;
-				margin: 0px;
-				font-weight: 700;
-				font-size: 16px;
-				line-height: 24px;
-			}
-			h3 a, h4 a {
-				text-decoration: none;
-				color: black;
-			}
-			.list {
-				list-style-type: disc;
-				margin: 0px;
-				padding-left: 23px;
-				font-size: 14px;
-				color: rgb(38, 38, 38);
-				line-height: 1.74;
-				letter-spacing: 0.05em;
-				outline-style: none;
-				overflow-wrap: break-word;
-			}
-			.line {
-				font-size: 14px;
-				color: rgb(38, 38, 38);
-				line-height: 1.74;
-				letter-spacing: 0.05em;
-				outline-style: none;
-				overflow-wrap: break-word;
-				margin: 0px;
-			}
-			#header {
-				line-height: 3em;
-				background: rgba(0, 0, 0, .1);
-			}
-			#header a {
-				padding: 0 1em;
-				text-decoration: none;
-				color: black;
-			}
-			#header #logo {
-				font-size: 1.2em;
-			}
-			#header a:nth-child(n+2) {
-				float: right;
-			}
-			#header a.active {
-				color: white;
-				background: dodgerblue;
-			}
-			#content {
-				padding: 1em;
-			}
-			@media(max-width:600px) {
-				#header {
-					display: flex;
-					flex-direction: column-reverse;
-				}
-				#header>a {
-					padding: .3em 1em;
-				}
-			}
-		</style>
 	</head>
 	<body>
 		<div id="header">
-			<a id="logo" href="https://gitee.com/zkrisj" target="_blank">zkrisj</a>
-			<a href="https://gitee.com/zkrisj/blog" target="_blank">Gitee</a>
+			<a id="logo">zkrisj</a>
+			<a href="https://github.com/zkrisj" target="_blank">Github</a>
+			<a href="https://gitee.com/zkrisj" target="_blank">Gitee</a>
 			<a href="html/about.html">关于</a>
 			<a href="html/2020.html">2020</a>
 			<a href="index.html" class="active">2021</a>
 		</div>
 		<div id='content'>
+			<img id="color-scheme-toggle" src="assets/dark.svg">
+			<script src="assets/system.js"></script>
 			<h1 id="年度报告">2021 年度报告</h1>
 			<div class="lake-content-editor-core lake-engine lake-typography-traditional" data-lake-element="root"
 				data-selection-146296="%7B%22path%22%3A%5B%5B69%2C0%2C1%2C0%5D%2C%5B69%2C0%2C1%2C1%5D%5D%2C%22uuid%22%3A%22146296%22%2C%22active%22%3Atrue%7D">
@@ -199,20 +131,12 @@
 				</p>
 				<h3 id="受访者">
 					<a href="#受访者">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 受访者
 				</h3>
 				<h4 id="人物来源">
 					<a href="#人物来源">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 人物来源
 				</h4>
 				<p class='line'>
@@ -220,7 +144,7 @@
 				</p>
 				<p class='line'>本次调查问卷中，填写问卷的&nbsp;<span>Node.js 开发者主要</span>年龄分布如下：</p>
 				<div id="main-years" style="width: 600px;height:400px; margin-top: 20px;"></div>
-				<script type="text/javascript">
+				<script>
 					echarts.init(document.getElementById('main-years')).setOption({
 						tooltip: {
 							trigger: 'item',
@@ -262,11 +186,7 @@
 				</p>
 				<h4 id="职业简历">
 					<a href="#职业简历">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 职业简历
 				</h4>
 				<p class='line'>
@@ -287,20 +207,12 @@
 				</p>
 				<h3 id="工作内容">
 					<a href="#工作内容">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 工作内容
 				</h3>
 				<h4 id="应用场景">
 					<a href="#应用场景">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 应用场景
 				</h4>
 				<p class='line'>
@@ -311,7 +223,7 @@
 					<li>大公司内会有更多的人使用 Node.js 开发内部运行系统 & 自动化工具。</li>
 				</ul>
 				<div id="canvas-company" style="width: 800px;height:800px; margin-top: 20px;"></div>
-				<script type="text/javascript">
+				<script>
 					const companyChart = echarts.init(document.getElementById('canvas-company'));
 					companyChart.on('updateAxisPointer', function(event) {
 						var xAxisInfo = event.axesInfo[0];
@@ -449,11 +361,7 @@
 				</script>
 				<h4 id="开发场景">
 					<a href="#开发场景">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 开发场景
 				</h4>
 				<p class='line'>
@@ -465,7 +373,7 @@
 					<li>1~3 年经验的开发者更愿意在 SSR 场景中使用 Node.js。</li>
 				</ul>
 				<div id="canvas-sence" style="width: 800px;height:800px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					const senceChart = echarts.init(document.getElementById('canvas-sence'));
 					senceChart.on('updateAxisPointer', function(event) {
 						var xAxisInfo = event.axesInfo[0];
@@ -583,20 +491,12 @@
 				</p>
 				<h3 id="开发流程">
 					<a href="#开发流程">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 开发流程
 				</h3>
 				<h4 id="代码转译">
 					<a href="#代码转译">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 代码转译
 				</h4>
 				<ul lake-indent="0" class="list">
@@ -604,7 +504,7 @@
 					<li>TypeScript 是最常用的转译语言。</li>
 				</ul>
 				<div id="canvas-trans" style="width: 800px;height:600px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					const transChart = echarts.init(document.getElementById('canvas-trans'));
 					transChart.on('updateAxisPointer', function(event) {
 						var xAxisInfo = event.axesInfo[0];
@@ -712,11 +612,7 @@
 				</p>
 				<h4 id="代码检查">
 					<a href="#代码检查">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 代码检查
 				</h4>
 				<p class='line'>
@@ -727,7 +623,7 @@
 					<li>8-20 人规模的团队 TSLint 的使用率最高。</li>
 				</ul>
 				<div id="canvas-linter" style="width: 800px;height:500px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					const linterChart = echarts.init(document.getElementById('canvas-linter'));
 					linterChart.on('updateAxisPointer', function(event) {
 						var xAxisInfo = event.axesInfo[0];
@@ -854,11 +750,7 @@
 				</script>
 				<h4 id="配置方式">
 					<a href="#配置方式">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 配置方式
 				</h4>
 				<p class='line'>
@@ -869,7 +761,7 @@
 					<li>虽然配置中心使用概率不高，不过公司规模越大则配置中心的使用概率越高。</li>
 				</ul>
 				<div id="canvas-cfg" style="width: 700px;height:300px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					const cfgChart = echarts.init(document.getElementById('canvas-cfg'));
 					cfgChart.setOption({
 						tooltip: {
@@ -918,11 +810,7 @@
 				</p>
 				<h4 id="编辑器">
 					<a href="#编辑器">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 编辑器
 				</h4>
 				<p class='line'>
@@ -935,7 +823,7 @@
 					<br>
 				</p>
 				<div id="canvas-ide" style="width: 700px;height:400px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					const ideData = {
 						'VS Code': 231,
 						WebStorm: 60,
@@ -995,11 +883,7 @@
 				</script>
 				<h4 id="进程管理">
 					<a href="#进程管理">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 进程管理
 				</h4>
 				<p class='line'>
@@ -1014,7 +898,7 @@
 					<br>
 				</p>
 				<div id="canvas-process" style="width: 1100px;height:650px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					setChart('canvas-process', 2, {
 						text: '不同规模公司使用的进程管理方式',
 						bottom: 0,
@@ -1118,18 +1002,14 @@
 				</p>
 				<h4 id="部署方式">
 					<a href="#部署方式">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 部署方式
 				</h4>
 				<p class='line'>
 					<br>
 				</p>
 				<div id="canvas-os" style="width: 700px; height:150px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					const osData = {
 						'Docker 容器': 132,
 						'物理机': 96,
@@ -1188,11 +1068,7 @@
 				</p>
 				<h3 id="技术栈">
 					<a href="#技术栈">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 技术栈
 				</h3>
 				<p class='line'>
@@ -1214,11 +1090,7 @@
 				</p>
 				<h4 id="框架">
 					<a href="#框架">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> Web 框架
 				</h4>
 				<p class='line'>
@@ -1233,7 +1105,7 @@
 					<br>
 				</p>
 				<div id="canvas-web" style="width: 900px;height:650px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					setChart('canvas-web', 2, {
 						text: '不同开发经验的 Noder 使用的 Web 框架',
 						bottom: 0,
@@ -1278,11 +1150,7 @@
 				</p>
 				<h4 id="数据库">
 					<a href="#数据库">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 数据库
 				</h4>
 				<p class='line'>
@@ -1296,7 +1164,7 @@
 					<br>
 				</p>
 				<div id="canvas-db" style="width: 900px;height:650px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					setChart('canvas-db', 2, {
 						text: '不同开发经验的 Noder 使用的数据库',
 						bottom: 0,
@@ -1335,11 +1203,7 @@
 				</p>
 				<h4 id="反向代理">
 					<a href="#反向代理">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 反向代理
 				</h4>
 				<p class='line'>
@@ -1353,7 +1217,7 @@
 					<br>
 				</p>
 				<div id="canvas-nginx" style="width: 900px;height:650px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					setChart('canvas-nginx', 2, {
 							text: '不同规模公司的反向代理',
 							bottom: 0,
@@ -1448,11 +1312,7 @@
 				</p>
 				<h4 id="RPC">
 					<a href="#RPC">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> RPC
 				</h4>
 				<p class='line'>
@@ -1467,7 +1327,7 @@
 					<br>
 				</p>
 				<div id="canvas-rpc" style="width: 900px;height:650px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					setChart('canvas-rpc', 2, {
 							text: '不同规模公司的 RPC 方式',
 							bottom: 0,
@@ -1562,20 +1422,12 @@
 				</p>
 				<h3 id="开发生态">
 					<a href="#开发生态">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 开发生态
 				</h3>
 				<h4 id="版本">
 					<a href="#版本">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> Node 版本
 				</h4>
 				<p class='line'>
@@ -1590,7 +1442,7 @@
 					<br>
 				</p>
 				<div id="canvas-version" style="width: 500px;height:350px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					const verData = {
 						'8.x': 5,
 						'12.x': 79,
@@ -1638,11 +1490,7 @@
 				</p>
 				<h4 id="依赖管理">
 					<a href="#依赖管理">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 依赖管理
 				</h4>
 				<p class='line'>
@@ -1656,7 +1504,7 @@
 					<br>
 				</p>
 				<div id="canvas-npm" style="width: 900px;height:650px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					setChart('canvas-npm', 2, {
 						text: '不同 Node 开发经验使用的依赖管理工具',
 						bottom: 0,
@@ -1678,11 +1526,7 @@
 				</p>
 				<h4 id="镜像">
 					<a href="#镜像">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> NPM 镜像
 				</h4>
 				<p class='line'>
@@ -1693,7 +1537,7 @@
 					<li>公司规模越大自行部署私有镜像的概率越高</li>
 				</ul>
 				<div id="canvas-image" style="width: 700px;height:450px; margin-top: 10px;"></div>
-				<script type="text/javascript">
+				<script>
 					const npmData = {
 						'有使用镜像加速': 106,
 						'公司部署了私有镜像': 98,
@@ -1745,11 +1589,7 @@
 				</p>
 				<h3 id="学习提升">
 					<a href="#学习提升">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 学习提升
 				</h3>
 				<p class='line'>
@@ -1757,11 +1597,7 @@
 				</p>
 				<h4 id="学习途径">
 					<a href="#学习途径">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 学习途径
 				</h4>
 				<p class='line'>
@@ -1776,7 +1612,7 @@
 					<br>
 				</p>
 				<div id="canvas-study" style="width: 900px;height:650px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					setChart('canvas-study', 2, {
 							text: '不同从业经验的学习途径',
 							bottom: 0,
@@ -1871,11 +1707,7 @@
 				</p>
 				<h4 id="使用困惑">
 					<a href="#使用困惑">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 使用困惑
 				</h4>
 				<p class='line'>
@@ -1890,7 +1722,7 @@
 					<br>
 				</p>
 				<div id="canvas-confused" style="width: 900px;height:650px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					setChart('canvas-confused', 2, {
 						text: '不同 Node.js 开发经验的使用困惑',
 						bottom: 0,
@@ -1912,11 +1744,7 @@
 				</p>
 				<h4 id="资源需求">
 					<a href="#资源需求">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 资源需求
 				</h4>
 				<p class='line'>
@@ -1931,7 +1759,7 @@
 					<br>
 				</p>
 				<div id="canvas-res" style="width: 900px;height:650px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					setChart('canvas-res', 2, {
 						text: '不同 Node 开发经验的需求资源',
 						bottom: 0,
@@ -1955,11 +1783,7 @@
 				</p>
 				<h4 id="未来关键字">
 					<a href="#未来关键字">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 未来关键字
 				</h4>
 				<p class='line'>
@@ -1973,7 +1797,7 @@
 					<br>
 				</p>
 				<div id="canvas-key" style="width: 800px;height:650px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					setChart('canvas-key', 2, {
 						text: '不同从业经验的关注关键词',
 						bottom: 0,
@@ -2051,11 +1875,7 @@
 				</p>
 				<h4 id="生态期望">
 					<a href="#生态期望">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 生态期望
 				</h4>
 				<p class='line'>
@@ -2069,7 +1889,7 @@
 					<br>
 				</p>
 				<div id="canvas-eco" style="width: 800px;height:650px; margin-top: 0px;"></div>
-				<script type="text/javascript">
+				<script>
 					setChart('canvas-eco', 2, {
 						text: '不同从业经验的关注关键词',
 						bottom: 0,
@@ -2101,11 +1921,7 @@
 				</p>
 				<h3 id="最后">
 					<a href="#最后">
-						<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" class="anchor-icon">
-							<path fill-rule="evenodd"
-								d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-							</path>
-						</svg>
+						<img src="assets/anchor.svg">
 					</a> 最后
 				</h3>
 				<p class='line'>

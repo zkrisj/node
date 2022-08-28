@@ -1,0 +1,76 @@
+.dark-mode {
+	background-color: black;
+}
+.dark-mode img {
+	background: #ccc;
+}
+.dark-mode canvas {
+	background-color: #ddd;
+}
+.dark-mode * {
+	color: #999;
+}
+#color-scheme-toggle {
+	background: #ccc;
+	padding: 0 10px;
+	border-radius: 4px;
+	width: 16px;
+	height: 36px;
+	float: right;
+	transition: background-color .3s ease-in-out 0s;
+}
+a {
+	text-decoration: none;
+	color: black;
+}
+.list {
+	list-style-type: disc;
+	margin: 0px;
+	padding-left: 23px;
+	font-size: 14px;
+	color: rgb(38, 38, 38);
+	line-height: 1.74;
+	letter-spacing: 0.05em;
+	outline-style: none;
+	overflow-wrap: break-word;
+}
+#header {
+	line-height: 3em;
+	background: rgba(0, 0, 0, .1);
+}
+#header a {
+	padding: 0 1em;
+}
+#header #logo {
+	font-size: 1.2em;
+}
+#header a:nth-child(n+2) {
+	float: right;
+}
+#header a.active {
+	color: white;
+	background: dodgerblue;
+}
+#content {
+	padding: 1em;
+}
+@media(max-width:600px) {
+	#header {
+		display: flex;
+		flex-direction: column-reverse;
+	}
+	#header>a {
+		padding: .3em 1em;
+	}
+}
+::-webkit-scrollbar {
+	width: 10px;
+	height: 12px;
+	border-radius: 10px;
+	background: #eee;
+	box-shadow: inset 0 0 3px #999;
+}
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: #bbb;
+}
