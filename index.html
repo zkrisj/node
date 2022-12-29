@@ -1,411 +1,408 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>2021 Node.js 开发者报告</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="assets/system.css">
-		<script src="lib/echarts.min.js"></script>
-		<script>
-			function setChart(id, idx = 1, title, list) {
-				const chart = echarts.init(document.getElementById(id));
-				const cols = Object.keys(list[0]).length - 1;
-				const getPie = (dimension) => ({
-					series: {
-						id: 'pie',
-						label: {
-							formatter: '{b} ({d}%)'
-						},
-						encode: {
-							value: dimension,
-							tooltip: dimension
-						}
-					}
-				});
-				chart.on('updateAxisPointer', function(event) {
-					var xAxisInfo = event.axesInfo[0];
-					if (xAxisInfo && xAxisInfo.axisIndex === 0) {
-						var dimension = xAxisInfo.value + 1;
-						chart.setOption(getPie(dimension));
-					}
-				});
-				chart.setOption({
-					legend: {},
-					tooltip: {
-						trigger: 'axis',
-						showContent: true,
-						formatter: (list) => {
-							const [item] = list;
-							if (list.length === 1 && item && item.value) {
-								return (item.value / 258 * 100).toFixed(2) + '%';
-							}
-							return list[0]['name'];
-						}
-					},
-					dataset: {
-						source: [
-                ['product', ...Object.keys(list[0]).slice(0, cols)], ...(list.map(({
-								key
-							}) => key).map((key) => [key, ...((Object.entries(list.find((item) => item.key === key))).map(([_, n]) => n).slice(
-								0, cols))]))
+  <head>
+    <title>2021 Node.js 开发者报告</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/system.css">
+    <script src="lib/echarts.min.js"></script>
+    <script src="assets/system.js" defer></script>
+    <script>
+      function setChart(id, idx = 1, title, list) {
+        const chart = echarts.init(document.getElementById(id));
+        const cols = Object.keys(list[0]).length - 1;
+        const getPie = (dimension) => ({
+          series: {
+            id: 'pie',
+            label: {
+              formatter: '{b} ({d}%)'
+            },
+            encode: {
+              value: dimension,
+              tooltip: dimension
+            }
+          }
+        });
+        chart.on('updateAxisPointer', function(event) {
+          var xAxisInfo = event.axesInfo[0];
+          if (xAxisInfo && xAxisInfo.axisIndex === 0) {
+            var dimension = xAxisInfo.value + 1;
+            chart.setOption(getPie(dimension));
+          }
+        });
+        chart.setOption({
+          legend: {},
+          tooltip: {
+            trigger: 'axis',
+            showContent: true,
+            formatter: (list) => {
+              const [item] = list;
+              if (list.length === 1 && item && item.value) {
+                return (item.value / 258 * 100).toFixed(2) + '%';
+              }
+              return list[0]['name'];
+            }
+          },
+          dataset: {
+            source: [
+              ['product', ...Object.keys(list[0]).slice(0, cols)], ...(list.map(({key}) => key).map((key) => [key, ...((Object.entries(list.find((item) => item.key === key))).map(([_, n]) => n).slice(0, cols))]))
+            ]
+          },
+          xAxis: [{
+            type: 'category'
+            }, {
+            type: 'value',
+            gridIndex: 1
+            }],
+          yAxis: [{
+            gridIndex: 0
+            }, {
+            gridIndex: 1,
+            type: 'category',
+            data: list.map(({
+              key
+            }) => key),
+            inverse: 1,
+            }],
+          grid: [{
+            top: '320px',
+            height: '250px',
+            width: '40%',
+            }, {
+            top: '40px',
+            height: '220px',
+            }],
+          title: [title],
+          series: [...Array(list.length).fill({
+            type: 'line',
+            smooth: true,
+            seriesLayoutBy: 'row'
+          }), {
+            stack: '全量',
+            xAxisIndex: 1,
+            yAxisIndex: 1,
+            type: 'bar',
+            data: list.map((item) => Object.entries(item).reduce((sum, [_, n]) => sum + (Number(n) || 0), 0))
+            }, {
+            type: 'pie',
+            id: 'pie',
+            radius: '20%',
+            center: ['75%', '460px'],
+            label: {
+              formatter: '{b}: {@2012} ({d}%)'
+            },
+            encode: {
+              itemName: 'product',
+              value: '2012',
+              tooltip: '2012'
+            }
+          }]
+        });
+        setTimeout(function() {
+          chart.setOption(getPie(idx));
+          chart.dispatchAction({
+            type: 'showTip',
+            seriesIndex: list.length,
+            dataIndex: 0
+          });
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="header">
+      <a id="logo">zkrisj</a>
+      <a href="https://github.com/zkrisj" target="_blank">Github</a>
+      <a href="https://gitee.com/zkrisj" target="_blank">Gitee</a>
+      <a href="html/about.html">关于</a>
+      <a href="html/2020.html">2020</a>
+      <a href="index.html" class="active">2021</a>
+    </div>
+    <div id='content'>
+      <img id="color-scheme-toggle" src="assets/dark.svg">
+      <h1 id="年度报告">2021 年度报告</h1>
+      <div class="lake-content-editor-core lake-engine lake-typography-traditional" data-lake-element="root"
+        data-selection-146296="%7B%22path%22%3A%5B%5B69%2C0%2C1%2C0%5D%2C%5B69%2C0%2C1%2C1%5D%5D%2C%22uuid%22%3A%22146296%22%2C%22active%22%3Atrue%7D">
+        <p class='line'>
+          <br>
+        </p>
+        <h3 id="受访者">
+          <a href="#受访者">
+            <img src="assets/anchor.svg">
+          </a> 受访者
+        </h3>
+        <h4 id="人物来源">
+          <a href="#人物来源">
+            <img src="assets/anchor.svg">
+          </a> 人物来源
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <p class='line'>本次调查问卷中，填写问卷的&nbsp;<span>Node.js 开发者主要</span>年龄分布如下：</p>
+        <div id="main-years" style="width: 600px;height:400px; margin-top: 20px;"></div>
+        <script>
+          echarts.init(document.getElementById('main-years')).setOption({
+            tooltip: {
+              trigger: 'item',
+              formatter: '{a} <br/>{b} : {c}'
+            },
+            legend: {
+              orient: 'vertical',
+              right: 0,
+            },
+            series: [
+              {
+                name: '姓名',
+                type: 'pie',
+                radius: '55%',
+                center: ['40%', '50%'],
+                data: [{
+                  name: '<22 岁 (5.04%)',
+                  value: 13
+                }, {
+                  name: '22~24 岁 (18.22%)',
+                  value: 47
+                }, {
+                  name: '25~27 岁 (33.33%)',
+                  value: 86,
+                  selected: true
+                }, {
+                  name: '28~32 岁 (33.72%)',
+                  value: 87
+                }, {
+                  name: '>32 岁 (9.67%)',
+                  value: 25
+                }],
+              }
+            ]
+          });
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h4 id="职业简历">
+          <a href="#职业简历">
+            <img src="assets/anchor.svg">
+          </a> 职业简历
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>典型的受访者来自两种公司，分别是百人左右的中小型公司，以及 5k 人以上的大公司。</li>
+          <li>他们通常是 7 人左右的团队内的前端或者全栈工程师。</li>
+          <li>相比去年，今年的后端工程师比率有较高提升（约 10%）。</li>
+        </ul>
+        <p class='line'>
+          <span data-card-type="inline" data-lake-card="image">
+            <img data-role="image" src="assets/interviewee.jpg" class="image lake-drag-image" alt="image.png" title="image.png">
+          </span>
+        </p>
+        <p class='line'>
+          <br>
+        </p>
+        <h3 id="工作内容">
+          <a href="#工作内容">
+            <img src="assets/anchor.svg">
+          </a> 工作内容
+        </h3>
+        <h4 id="应用场景">
+          <a href="#应用场景">
+            <img src="assets/anchor.svg">
+          </a> 应用场景
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>开发者使用 Node.js 一般用于 to B 业务。</li>
+          <li>大公司内会有更多的人使用 Node.js 开发内部运行系统 & 自动化工具。</li>
+        </ul>
+        <div id="canvas-company" style="width: 800px;height:800px; margin-top: 20px;"></div>
+        <script>
+          const companyChart = echarts.init(document.getElementById('canvas-company'));
+          companyChart.on('updateAxisPointer', function(event) {
+            var xAxisInfo = event.axesInfo[0];
+            if (xAxisInfo) {
+              var dimension = xAxisInfo.value + 1;
+              companyChart.setOption({
+                series: {
+                  id: 'pie',
+                  label: {
+                    formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                  },
+                  center: ['60%', '25%'],
+                  encode: {
+                    value: dimension,
+                    tooltip: dimension
+                  }
+                }
+              });
+            }
+          });
+          companyChart.setOption({
+            legend: {
+              orient: 'vertical',
+              left: 50,
+              top: 50,
+            },
+            tooltip: {
+              trigger: 'axis',
+              showContent: false
+            },
+            dataset: {
+              source: [
+                ['product', '1人', '2-10人', '11-50人', '51-500人', '501-1000人', '1001-5000人', '大于 5000人'],
+                ['to c 应用', 2, 6, 21, 36, 13, 16, 39],
+                ['to b 应用', 1, 9, 22, 37, 9, 20, 53],
+                ['内部运营系统', undefined, 8, 21, 32, 10, 19, 53],
+                ['自动化工具', undefined, 1, 13, 21, 5, 17, 41],
+                ['其他', 3, 1, 1, 7, 0, 2, 5]
               ]
-					},
-					xAxis: [{
-						type: 'category'
-            }, {
-						type: 'value',
-						gridIndex: 1
-            }],
-					yAxis: [{
-						gridIndex: 0
-            }, {
-						gridIndex: 1,
-						type: 'category',
-						data: list.map(({
-							key
-						}) => key),
-						inverse: 1,
-            }],
-					grid: [{
-						top: '320px',
-						height: '250px',
-						width: '40%',
-            }, {
-						top: '40px',
-						height: '220px',
-            }],
-					title: [title],
-					series: [...Array(list.length).fill({
-						type: 'line',
-						smooth: true,
-						seriesLayoutBy: 'row'
-					}), {
-						stack: '全量',
-						xAxisIndex: 1,
-						yAxisIndex: 1,
-						type: 'bar',
-						data: list.map((item) => Object.entries(item).reduce((sum, [_, n]) => sum + (Number(n) || 0), 0))
-            }, {
-						type: 'pie',
-						id: 'pie',
-						radius: '20%',
-						center: ['75%', '460px'],
-						label: {
-							formatter: '{b}: {@2012} ({d}%)'
-						},
-						encode: {
-							itemName: 'product',
-							value: '2012',
-							tooltip: '2012'
-						}
+            },
+            xAxis: {
+              type: 'category'
+            },
+            yAxis: {
+              gridIndex: 0
+            },
+            grid: {
+              top: '55%'
+            },
+            series: [{
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
+              }, {
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
+              }, {
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
+              }, {
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
+              }, {
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
+              }, {
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
+              }, {
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
+              }, {
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
+              }, {
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
+              }, {
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
+              }, {
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
+              }, {
+              type: 'pie',
+              id: 'pie',
+              radius: '30%',
+              center: ['50%', '25%'],
+              label: {
+                formatter: '{b}: {@2012} ({d}%)'
+              },
+              encode: {
+                itemName: 'product',
+                value: '2012',
+                tooltip: '2012'
+              }
             }]
-				});
-				setTimeout(function() {
-					chart.setOption(getPie(idx));
-					chart.dispatchAction({
-						type: 'showTip',
-						seriesIndex: list.length,
-						dataIndex: 0
-					});
-				});
-			}
-		</script>
-	</head>
-	<body>
-		<div id="header">
-			<a id="logo">zkrisj</a>
-			<a href="https://github.com/zkrisj" target="_blank">Github</a>
-			<a href="https://gitee.com/zkrisj" target="_blank">Gitee</a>
-			<a href="html/about.html">关于</a>
-			<a href="html/2020.html">2020</a>
-			<a href="index.html" class="active">2021</a>
-		</div>
-		<div id='content'>
-			<img id="color-scheme-toggle" src="assets/dark.svg">
-			<script src="assets/system.js"></script>
-			<h1 id="年度报告">2021 年度报告</h1>
-			<div class="lake-content-editor-core lake-engine lake-typography-traditional" data-lake-element="root"
-				data-selection-146296="%7B%22path%22%3A%5B%5B69%2C0%2C1%2C0%5D%2C%5B69%2C0%2C1%2C1%5D%5D%2C%22uuid%22%3A%22146296%22%2C%22active%22%3Atrue%7D">
-				<p class='line'>
-					<br>
-				</p>
-				<h3 id="受访者">
-					<a href="#受访者">
-						<img src="assets/anchor.svg">
-					</a> 受访者
-				</h3>
-				<h4 id="人物来源">
-					<a href="#人物来源">
-						<img src="assets/anchor.svg">
-					</a> 人物来源
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<p class='line'>本次调查问卷中，填写问卷的&nbsp;<span>Node.js 开发者主要</span>年龄分布如下：</p>
-				<div id="main-years" style="width: 600px;height:400px; margin-top: 20px;"></div>
-				<script>
-					echarts.init(document.getElementById('main-years')).setOption({
-						tooltip: {
-							trigger: 'item',
-							formatter: '{a} <br/>{b} : {c}'
-						},
-						legend: {
-							orient: 'vertical',
-							right: 0,
-						},
-						series: [
-							{
-								name: '姓名',
-								type: 'pie',
-								radius: '55%',
-								center: ['40%', '50%'],
-								data: [{
-									name: '<22 岁 (5.04%)',
-									value: 13
-                        }, {
-									name: '22~24 岁 (18.22%)',
-									value: 47
-                        }, {
-									name: '25~27 岁 (33.33%)',
-									value: 86,
-									selected: true
-                        }, {
-									name: '28~32 岁 (33.72%)',
-									value: 87
-                        }, {
-									name: '>32 岁 (9.67%)',
-									value: 25
-                        }],
-                    }
-                ]
-					});
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h4 id="职业简历">
-					<a href="#职业简历">
-						<img src="assets/anchor.svg">
-					</a> 职业简历
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>典型的受访者来自两种公司，分别是百人左右的中小型公司，以及 5k 人以上的大公司。</li>
-					<li>他们通常是 7 人左右的团队内的前端或者全栈工程师。</li>
-					<li>相比去年，今年的后端工程师比率有较高提升（约 10%）。</li>
-				</ul>
-				<p class='line'>
-					<span data-card-type="inline" data-lake-card="image">
-						<img data-role="image" src="assets/interviewee.jpg" class="image lake-drag-image" alt="image.png" title="image.png">
-					</span>
-				</p>
-				<p class='line'>
-					<br>
-				</p>
-				<h3 id="工作内容">
-					<a href="#工作内容">
-						<img src="assets/anchor.svg">
-					</a> 工作内容
-				</h3>
-				<h4 id="应用场景">
-					<a href="#应用场景">
-						<img src="assets/anchor.svg">
-					</a> 应用场景
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>开发者使用 Node.js 一般用于 to B 业务。</li>
-					<li>大公司内会有更多的人使用 Node.js 开发内部运行系统 & 自动化工具。</li>
-				</ul>
-				<div id="canvas-company" style="width: 800px;height:800px; margin-top: 20px;"></div>
-				<script>
-					const companyChart = echarts.init(document.getElementById('canvas-company'));
-					companyChart.on('updateAxisPointer', function(event) {
-						var xAxisInfo = event.axesInfo[0];
-						if (xAxisInfo) {
-							var dimension = xAxisInfo.value + 1;
-							companyChart.setOption({
-								series: {
-									id: 'pie',
-									label: {
-										formatter: '{b}: {@[' + dimension + ']} ({d}%)'
-									},
-									center: ['60%', '25%'],
-									encode: {
-										value: dimension,
-										tooltip: dimension
-									}
-								}
-							});
-						}
-					});
-					companyChart.setOption({
-						legend: {
-							orient: 'vertical',
-							left: 50,
-							top: 50,
-						},
-						tooltip: {
-							trigger: 'axis',
-							showContent: false
-						},
-						dataset: {
-							source: [
-                    ['product', '1人', '2-10人', '11-50人', '51-500人', '501-1000人', '1001-5000人', '大于 5000人'],
-                    ['to c 应用', 2, 6, 21, 36, 13, 16, 39],
-                    ['to b 应用', 1, 9, 22, 37, 9, 20, 53],
-                    ['内部运营系统', undefined, 8, 21, 32, 10, 19, 53],
-                    ['自动化工具', undefined, 1, 13, 21, 5, 17, 41],
-                    ['其他', 3, 1, 1, 7, 0, 2, 5]
-                  ]
-						},
-						xAxis: {
-							type: 'category'
-						},
-						yAxis: {
-							gridIndex: 0
-						},
-						grid: {
-							top: '55%'
-						},
-						series: [{
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
-              }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
-              }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
-              }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
-              }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
-              }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
-              }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
-              }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
-              }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
-              }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
-              }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
-              }, {
-							type: 'pie',
-							id: 'pie',
-							radius: '30%',
-							center: ['50%', '25%'],
-							label: {
-								formatter: '{b}: {@2012} ({d}%)'
-							},
-							encode: {
-								itemName: 'product',
-								value: '2012',
-								tooltip: '2012'
-							}
-              }]
-					});
-					setTimeout(function() {
-						companyChart.setOption({
-							series: {
-								id: 'pie',
-								label: {
-									formatter: '{b}: {@[' + 7 + ']} ({d}%)'
-								},
-								center: ['60%', '25%'],
-								encode: {
-									value: 7,
-									tooltip: 7
-								}
-							}
-						});
-					}, 10);
-				</script>
-				<h4 id="开发场景">
-					<a href="#开发场景">
-						<img src="assets/anchor.svg">
-					</a> 开发场景
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>2021 年整体而言有 81% (6%↓) 的开发者使用 Node.js 开发 Web API，有 41% (10%↓) 的人开发 CLI & 工具。</li>
-					<li>随着使用年限增加将 Node.js 作为服务端 API 的比率逐级下降而开发微服务 (7%↑) 和 CLI & 工具 (4%↑) 的场景逐渐增长。</li>
-					<li>1~3 年经验的开发者更愿意在 SSR 场景中使用 Node.js。</li>
-				</ul>
-				<div id="canvas-sence" style="width: 800px;height:800px; margin-top: 0px;"></div>
-				<script>
-					const senceChart = echarts.init(document.getElementById('canvas-sence'));
-					senceChart.on('updateAxisPointer', function(event) {
-						var xAxisInfo = event.axesInfo[0];
-						if (xAxisInfo) {
-							var dimension = xAxisInfo.value + 1;
-							senceChart.setOption({
-								series: {
-									id: 'pie',
-									label: {
-										formatter: '{b}: {@[' + dimension + ']} ({d}%)'
-									},
-									center: ['60%', '25%'],
-									encode: {
-										value: dimension,
-										tooltip: dimension
-									}
-								}
-							});
-						}
-					});
-					senceChart.setOption({
-						legend: {
-							orient: 'vertical',
-							left: 50,
-							top: 50,
-						},
-						tooltip: {
-							trigger: 'axis',
-							showContent: false
-						},
-						dataset: {
-							source: [
+          });
+          setTimeout(function() {
+            companyChart.setOption({
+              series: {
+                id: 'pie',
+                label: {
+                  formatter: '{b}: {@[' + 7 + ']} ({d}%)'
+                },
+                center: ['60%', '25%'],
+                encode: {
+                  value: 7,
+                  tooltip: 7
+                }
+              }
+            });
+          }, 10);
+        </script>
+        <h4 id="开发场景">
+          <a href="#开发场景">
+            <img src="assets/anchor.svg">
+          </a> 开发场景
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>2021 年整体而言有 81% (6%↓) 的开发者使用 Node.js 开发 Web API，有 41% (10%↓) 的人开发 CLI & 工具。</li>
+          <li>随着使用年限增加将 Node.js 作为服务端 API 的比率逐级下降而开发微服务 (7%↑) 和 CLI & 工具 (4%↑) 的场景逐渐增长。</li>
+          <li>1~3 年经验的开发者更愿意在 SSR 场景中使用 Node.js。</li>
+        </ul>
+        <div id="canvas-sence" style="width: 800px;height:800px; margin-top: 0px;"></div>
+        <script>
+          const senceChart = echarts.init(document.getElementById('canvas-sence'));
+          senceChart.on('updateAxisPointer', function(event) {
+            var xAxisInfo = event.axesInfo[0];
+            if (xAxisInfo) {
+              var dimension = xAxisInfo.value + 1;
+              senceChart.setOption({
+                series: {
+                  id: 'pie',
+                  label: {
+                    formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                  },
+                  center: ['60%', '25%'],
+                  encode: {
+                    value: dimension,
+                    tooltip: dimension
+                  }
+                }
+              });
+            }
+          });
+          senceChart.setOption({
+            legend: {
+              orient: 'vertical',
+              left: 50,
+              top: 50,
+            },
+            tooltip: {
+              trigger: 'axis',
+              showContent: false
+            },
+            dataset: {
+              source: [
                 ['product', '0~1 年', '1~3 年', '3~5 年', '5~10年'],
                 ['Web API', 26, 60, 77, 46],
                 ['BFF 层', 7, 20, 35, 24],
@@ -417,1517 +414,1513 @@
                 ['其他', 4, 5, 2, 2],
                 ['代码片段', 0, 2, 6, 4]
               ]
-						},
-						xAxis: {
-							type: 'category'
-						},
-						yAxis: {
-							gridIndex: 0
-						},
-						grid: {
-							top: '55%'
-						},
-						series: [{
-							type: 'line',
-							smooth: true,
-							seriesLayoutBy: 'row'
+            },
+            xAxis: {
+              type: 'category'
+            },
+            yAxis: {
+              gridIndex: 0
+            },
+            grid: {
+              top: '55%'
+            },
+            series: [{
+              type: 'line',
+              smooth: true,
+              seriesLayoutBy: 'row'
             }, {
-							type: 'line',
-							smooth: true,
-							seriesLayoutBy: 'row'
+              type: 'line',
+              smooth: true,
+              seriesLayoutBy: 'row'
             }, {
-							type: 'line',
-							smooth: true,
-							seriesLayoutBy: 'row'
+              type: 'line',
+              smooth: true,
+              seriesLayoutBy: 'row'
             }, {
-							type: 'line',
-							smooth: true,
-							seriesLayoutBy: 'row'
+              type: 'line',
+              smooth: true,
+              seriesLayoutBy: 'row'
             }, {
-							type: 'line',
-							smooth: true,
-							seriesLayoutBy: 'row'
+              type: 'line',
+              smooth: true,
+              seriesLayoutBy: 'row'
             }, {
-							type: 'line',
-							smooth: true,
-							seriesLayoutBy: 'row'
+              type: 'line',
+              smooth: true,
+              seriesLayoutBy: 'row'
             }, {
-							type: 'line',
-							smooth: true,
-							seriesLayoutBy: 'row'
+              type: 'line',
+              smooth: true,
+              seriesLayoutBy: 'row'
             }, {
-							type: 'pie',
-							id: 'pie',
-							radius: '30%',
-							center: ['50%', '25%'],
-							label: {
-								formatter: '{b}: {@2012} ({d}%)'
-							},
-							encode: {
-								itemName: 'product',
-								value: '2012',
-								tooltip: '2012'
-							}
+              type: 'pie',
+              id: 'pie',
+              radius: '30%',
+              center: ['50%', '25%'],
+              label: {
+                formatter: '{b}: {@2012} ({d}%)'
+              },
+              encode: {
+                itemName: 'product',
+                value: '2012',
+                tooltip: '2012'
+              }
             }]
-					});
-					setTimeout(function() {
-						senceChart.setOption({
-							series: {
-								id: 'pie',
-								label: {
-									formatter: '{b}: {@[' + 1 + ']} ({d}%)'
-								},
-								center: ['60%', '25%'],
-								encode: {
-									value: 1,
-									tooltip: 1
-								}
-							}
-						});
-					});
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h3 id="开发流程">
-					<a href="#开发流程">
-						<img src="assets/anchor.svg">
-					</a> 开发流程
-				</h3>
-				<h4 id="代码转译">
-					<a href="#代码转译">
-						<img src="assets/anchor.svg">
-					</a> 代码转译
-				</h4>
-				<ul lake-indent="0" class="list">
-					<li>去年 0~1 年的开发者有 45% 不转译，今年大部分开发者都会转译。</li>
-					<li>TypeScript 是最常用的转译语言。</li>
-				</ul>
-				<div id="canvas-trans" style="width: 800px;height:600px; margin-top: 0px;"></div>
-				<script>
-					const transChart = echarts.init(document.getElementById('canvas-trans'));
-					transChart.on('updateAxisPointer', function(event) {
-						var xAxisInfo = event.axesInfo[0];
-						if (xAxisInfo) {
-							var dimension = xAxisInfo.value + 1;
-							transChart.setOption({
-								series: {
-									id: 'pie',
-									label: {
-										formatter: '{b} ({d}%)'
-									},
-									center: ['60%', '25%'],
-									encode: {
-										value: dimension,
-										tooltip: dimension
-									}
-								}
-							});
-						}
-					});
-					transChart.setOption({
-						legend: {
-							orient: 'vertical',
-							left: 50,
-							top: 50,
-						},
-						tooltip: {
-							trigger: 'axis',
-							showContent: false
-						},
-						dataset: {
-							source: [
-                  ['product', '0~1 年', '1~3 年', '3~5 年', '5~10年'],
-                  ['TypeScript', 19, 57, 72, 43],
-                  ['Babel', 23, 42, 43, 20],
-                  ['不转译', 9, 15, 22, 8],
-                  ['Dart', undefined, 4, 3, undefined],
-                  ['ClojureScript', undefined, undefined, 1, 2],
-                  ['Haxe', undefined, 1, undefined, undefined],
-                  ['其他', 0, 1, 0, 0]
-                ]
-						},
-						xAxis: {
-							type: 'category'
-						},
-						yAxis: {
-							gridIndex: 0
-						},
-						grid: {
-							top: '55%'
-						},
-						series: [{
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
+          });
+          setTimeout(function() {
+            senceChart.setOption({
+              series: {
+                id: 'pie',
+                label: {
+                  formatter: '{b}: {@[' + 1 + ']} ({d}%)'
+                },
+                center: ['60%', '25%'],
+                encode: {
+                  value: 1,
+                  tooltip: 1
+                }
+              }
+            });
+          });
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h3 id="开发流程">
+          <a href="#开发流程">
+            <img src="assets/anchor.svg">
+          </a> 开发流程
+        </h3>
+        <h4 id="代码转译">
+          <a href="#代码转译">
+            <img src="assets/anchor.svg">
+          </a> 代码转译
+        </h4>
+        <ul lake-indent="0" class="list">
+          <li>去年 0~1 年的开发者有 45% 不转译，今年大部分开发者都会转译。</li>
+          <li>TypeScript 是最常用的转译语言。</li>
+        </ul>
+        <div id="canvas-trans" style="width: 800px;height:600px; margin-top: 0px;"></div>
+        <script>
+          const transChart = echarts.init(document.getElementById('canvas-trans'));
+          transChart.on('updateAxisPointer', function(event) {
+            var xAxisInfo = event.axesInfo[0];
+            if (xAxisInfo) {
+              var dimension = xAxisInfo.value + 1;
+              transChart.setOption({
+                series: {
+                  id: 'pie',
+                  label: {
+                    formatter: '{b} ({d}%)'
+                  },
+                  center: ['60%', '25%'],
+                  encode: {
+                    value: dimension,
+                    tooltip: dimension
+                  }
+                }
+              });
+            }
+          });
+          transChart.setOption({
+            legend: {
+              orient: 'vertical',
+              left: 50,
+              top: 50,
+            },
+            tooltip: {
+              trigger: 'axis',
+              showContent: false
+            },
+            dataset: {
+              source: [
+                ['product', '0~1 年', '1~3 年', '3~5 年', '5~10年'],
+                ['TypeScript', 19, 57, 72, 43],
+                ['Babel', 23, 42, 43, 20],
+                ['不转译', 9, 15, 22, 8],
+                ['Dart', undefined, 4, 3, undefined],
+                ['ClojureScript', undefined, undefined, 1, 2],
+                ['Haxe', undefined, 1, undefined, undefined],
+                ['其他', 0, 1, 0, 0]
+              ]
+            },
+            xAxis: {
+              type: 'category'
+            },
+            yAxis: {
+              gridIndex: 0
+            },
+            grid: {
+              top: '55%'
+            },
+            series: [{
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
             }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
             }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
             }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
             }, {
-							type: 'pie',
-							id: 'pie',
-							radius: '30%',
-							center: ['50%', '25%'],
-							label: {
-								formatter: '{b}: {@2012} ({d}%)'
-							},
-							encode: {
-								itemName: 'product',
-								value: '2012',
-								tooltip: '2012'
-							}
+              type: 'pie',
+              id: 'pie',
+              radius: '30%',
+              center: ['50%', '25%'],
+              label: {
+                formatter: '{b}: {@2012} ({d}%)'
+              },
+              encode: {
+                itemName: 'product',
+                value: '2012',
+                tooltip: '2012'
+              }
             }]
-					});
-					setTimeout(function() {
-						transChart.setOption({
-							series: {
-								id: 'pie',
-								label: {
-									formatter: '{b} ({d}%)'
-								},
-								center: ['60%', '25%'],
-								encode: {
-									value: 4,
-									tooltip: 4
-								}
-							}
-						});
-					}, 10);
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h4 id="代码检查">
-					<a href="#代码检查">
-						<img src="assets/anchor.svg">
-					</a> 代码检查
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>整体上有 88% 的 Node.js 开发者使用 ESLint。</li>
-					<li>8-20 人规模的团队 TSLint 的使用率最高。</li>
-				</ul>
-				<div id="canvas-linter" style="width: 800px;height:500px; margin-top: 0px;"></div>
-				<script>
-					const linterChart = echarts.init(document.getElementById('canvas-linter'));
-					linterChart.on('updateAxisPointer', function(event) {
-						var xAxisInfo = event.axesInfo[0];
-						if (xAxisInfo) {
-							var dimension = xAxisInfo.value + 1;
-							linterChart.setOption({
-								series: {
-									id: 'pie',
-									label: {
-										formatter: '{b} ({d}%)'
-									},
-									center: ['60%', '25%'],
-									encode: {
-										value: dimension,
-										tooltip: dimension
-									}
-								}
-							});
-						}
-					});
-					linterChart.setOption({
-						legend: {
-							orient: 'vertical',
-							left: 50,
-							top: 50,
-						},
-						tooltip: {
-							trigger: 'axis',
-							showContent: false
-						},
-						dataset: {
-							source: [
-                    ['product', '1人', '2-7人', '8-12人', '13-20人', '21-40人', '40-100人', '大于100人'],
-                    ['ESLint', 22, 71, 36, 22, 25, 23, 29],
-                    ['TSLint', 6, 27, 20, 13, 10, 11, 10],
-                    ['JSDoc', 1, 7, 5, 5, undefined, 1, 3],
-                    ['Standard', 2, 7, 3, 2, 3, 3, 3],
-                    ['JSHint', undefined, 3, 2, undefined, 2, undefined, 2],
-                    ['其他', 4, 11, 1, 0, 1, 0, 2],
-                    ['JSCS', undefined, undefined, 1, undefined, undefined, undefined, 1],
-                    ['Flow', undefined, undefined, 1, undefined, undefined, undefined, 1]
-
-                  ]
-						},
-						xAxis: {
-							type: 'category'
-						},
-						yAxis: {
-							gridIndex: 0
-						},
-						grid: {
-							top: '55%'
-						},
-						series: [{
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
+          });
+          setTimeout(function() {
+            transChart.setOption({
+              series: {
+                id: 'pie',
+                label: {
+                  formatter: '{b} ({d}%)'
+                },
+                center: ['60%', '25%'],
+                encode: {
+                  value: 4,
+                  tooltip: 4
+                }
+              }
+            });
+          }, 10);
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h4 id="代码检查">
+          <a href="#代码检查">
+            <img src="assets/anchor.svg">
+          </a> 代码检查
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>整体上有 88% 的 Node.js 开发者使用 ESLint。</li>
+          <li>8-20 人规模的团队 TSLint 的使用率最高。</li>
+        </ul>
+        <div id="canvas-linter" style="width: 800px;height:500px; margin-top: 0px;"></div>
+        <script>
+          const linterChart = echarts.init(document.getElementById('canvas-linter'));
+          linterChart.on('updateAxisPointer', function(event) {
+            var xAxisInfo = event.axesInfo[0];
+            if (xAxisInfo) {
+              var dimension = xAxisInfo.value + 1;
+              linterChart.setOption({
+                series: {
+                  id: 'pie',
+                  label: {
+                    formatter: '{b} ({d}%)'
+                  },
+                  center: ['60%', '25%'],
+                  encode: {
+                    value: dimension,
+                    tooltip: dimension
+                  }
+                }
+              });
+            }
+          });
+          linterChart.setOption({
+            legend: {
+              orient: 'vertical',
+              left: 50,
+              top: 50,
+            },
+            tooltip: {
+              trigger: 'axis',
+              showContent: false
+            },
+            dataset: {
+              source: [
+                ['product', '1人', '2-7人', '8-12人', '13-20人', '21-40人', '40-100人', '大于100人'],
+                ['ESLint', 22, 71, 36, 22, 25, 23, 29],
+                ['TSLint', 6, 27, 20, 13, 10, 11, 10],
+                ['JSDoc', 1, 7, 5, 5, undefined, 1, 3],
+                ['Standard', 2, 7, 3, 2, 3, 3, 3],
+                ['JSHint', undefined, 3, 2, undefined, 2, undefined, 2],
+                ['其他', 4, 11, 1, 0, 1, 0, 2],
+                ['JSCS', undefined, undefined, 1, undefined, undefined, undefined, 1],
+                ['Flow', undefined, undefined, 1, undefined, undefined, undefined, 1]
+              ]
+            },
+            xAxis: {
+              type: 'category'
+            },
+            yAxis: {
+              gridIndex: 0
+            },
+            grid: {
+              top: '55%'
+            },
+            series: [{
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
               }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
               }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
               }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
               }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
               }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
               }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
               }, {
-							type: 'bar',
-							stack: '总量',
-							smooth: true,
-							seriesLayoutBy: 'row'
+              type: 'bar',
+              stack: '总量',
+              smooth: true,
+              seriesLayoutBy: 'row'
               }, {
-							type: 'pie',
-							id: 'pie',
-							radius: '30%',
-							center: ['50%', '25%'],
-							label: {
-								formatter: '{b}: {@2012} ({d}%)'
-							},
-							encode: {
-								itemName: 'product',
-								value: '2012',
-								tooltip: '2012'
-							}
+              type: 'pie',
+              id: 'pie',
+              radius: '30%',
+              center: ['50%', '25%'],
+              label: {
+                formatter: '{b}: {@2012} ({d}%)'
+              },
+              encode: {
+                itemName: 'product',
+                value: '2012',
+                tooltip: '2012'
+              }
               }]
-					});
-					setTimeout(function() {
-						linterChart.setOption({
-							series: {
-								id: 'pie',
-								label: {
-									formatter: '{b} ({d}%)'
-								},
-								center: ['60%', '25%'],
-								encode: {
-									value: 4,
-									tooltip: 4
-								}
-							}
-						});
-					}, 10);
-				</script>
-				<h4 id="配置方式">
-					<a href="#配置方式">
-						<img src="assets/anchor.svg">
-					</a> 配置方式
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>文件配置是最流行的配置方式。</li>
-					<li>虽然配置中心使用概率不高，不过公司规模越大则配置中心的使用概率越高。</li>
-				</ul>
-				<div id="canvas-cfg" style="width: 700px;height:300px; margin-top: 0px;"></div>
-				<script>
-					const cfgChart = echarts.init(document.getElementById('canvas-cfg'));
-					cfgChart.setOption({
-						tooltip: {
-							trigger: 'axis',
-							axisPointer: {
-								type: 'shadow'
-							},
-							formatter: ([item]) => {
-								return (item.value / 258 * 100).toFixed(2) + '%';
-							}
-						},
-						grid: [{
-							top: 30,
-							bottom: 30,
-							left: 10,
-							containLabel: true
+          });
+          setTimeout(function() {
+            linterChart.setOption({
+              series: {
+                id: 'pie',
+                label: {
+                  formatter: '{b} ({d}%)'
+                },
+                center: ['60%', '25%'],
+                encode: {
+                  value: 4,
+                  tooltip: 4
+                }
+              }
+            });
+          }, 10);
+        </script>
+        <h4 id="配置方式">
+          <a href="#配置方式">
+            <img src="assets/anchor.svg">
+          </a> 配置方式
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>文件配置是最流行的配置方式。</li>
+          <li>虽然配置中心使用概率不高，不过公司规模越大则配置中心的使用概率越高。</li>
+        </ul>
+        <div id="canvas-cfg" style="width: 700px;height:300px; margin-top: 0px;"></div>
+        <script>
+          const cfgChart = echarts.init(document.getElementById('canvas-cfg'));
+          cfgChart.setOption({
+            tooltip: {
+              trigger: 'axis',
+              axisPointer: {
+                type: 'shadow'
+              },
+              formatter: ([item]) => {
+                return (item.value / 258 * 100).toFixed(2) + '%';
+              }
+            },
+            grid: [{
+              top: 30,
+              bottom: 30,
+              left: 10,
+              containLabel: true
             }],
-						xAxis: {
-							type: 'value',
-							boundaryGap: [0, 0.01]
-						},
-						yAxis: {
-							type: 'category',
-							data: [
+            xAxis: {
+              type: 'value',
+              boundaryGap: [0, 0.01]
+            },
+            yAxis: {
+              type: 'category',
+              data: [
                 '文件配置', '环境变量配置', '配置中心 (如 zookeeper 等)', '数据库配置'
               ],
-							inverse: true
-						},
-						series: [{
-							name: '数据',
-							type: 'bar',
-							color: '#60a0a8',
-							data: [182, 142, 82, 59]
+              inverse: true
+            },
+            series: [{
+              name: '数据',
+              type: 'bar',
+              color: '#60a0a8',
+              data: [182, 142, 82, 59]
             }]
-					});
-					setTimeout(function() {
-						cfgChart.dispatchAction({
-							type: 'showTip',
-							seriesIndex: 0,
-							dataIndex: 0
-						});
-					}, 1000);
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h4 id="编辑器">
-					<a href="#编辑器">
-						<img src="assets/anchor.svg">
-					</a> 编辑器
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>VS Code 一骑绝尘，是 Node.js 开发者最喜爱开发工具</li>
-				</ul>
-				<p class='line'>
-					<br>
-				</p>
-				<div id="canvas-ide" style="width: 700px;height:400px; margin-top: 0px;"></div>
-				<script>
-					const ideData = {
-						'VS Code': 231,
-						WebStorm: 60,
-						Vim: 27,
-						Sublime: 23,
-						'intellij IDEA': 21,
-						Emacs: 4,
-						Atom: 4,
-						Eclipse: 2,
-						'其他': 4,
-					};
-					tool = echarts.init(document.getElementById('canvas-ide'));
-					tool.setOption({
-						tooltip: {
-							trigger: 'axis',
-							axisPointer: {
-								type: 'shadow'
-							},
-							formatter: ([item]) => {
-								return (item.value / 258 * 100).toFixed(2) + '%';
-							}
-						},
-						grid: [{
-							top: 30,
-							bottom: 50,
-							left: 10,
-							containLabel: true
-            }],
-						xAxis: {
-							type: 'value',
-						},
-						grid: [{
-							top: 0,
-							bottom: 0,
-							left: 10,
-							containLabel: true
-            }],
-						yAxis: {
-							type: 'category',
-							data: Object.keys(ideData),
-							inverse: true
-						},
-						series: [{
-							name: '数据',
-							type: 'bar',
-							color: '#91c7ae',
-							data: Object.keys(ideData).map((key) => ideData[key])
-            }]
-					});
-					setTimeout(function() {
-						tool.dispatchAction({
-							type: 'showTip',
-							seriesIndex: 0, // 显示第几个series
-							dataIndex: 0 // 显示第几个数据
-						});
-					});
-				</script>
-				<h4 id="进程管理">
-					<a href="#进程管理">
-						<img src="assets/anchor.svg">
-					</a> 进程管理
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>K8s & Docker 已经十分流行了。</li>
-					<li>中型公司使用 PM2 的比例更高。</li>
-					<li>规模越小越乐于尝试 Serverless 的部署方式。</li>
-				</ul>
-				<p class='line'>
-					<br>
-				</p>
-				<div id="canvas-process" style="width: 1100px;height:650px; margin-top: 0px;"></div>
-				<script>
-					setChart('canvas-process', 2, {
-						text: '不同规模公司使用的进程管理方式',
-						bottom: 0,
-						left: '50%',
-						textAlign: 'center'
-					}, [
-						{
-							'1人': 3,
-							'2-10人': 10,
-							'11-50人': 29,
-							'51-500人': 43,
-							'501-1000人': 15,
-							'1001-5000人': 22,
-							'大于 5000人': 31,
-							key: 'PM2'
+          });
+          setTimeout(function() {
+            cfgChart.dispatchAction({
+              type: 'showTip',
+              seriesIndex: 0,
+              dataIndex: 0
+            });
+          }, 1000);
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h4 id="编辑器">
+          <a href="#编辑器">
+            <img src="assets/anchor.svg">
+          </a> 编辑器
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>VS Code 一骑绝尘，是 Node.js 开发者最喜爱开发工具</li>
+        </ul>
+        <p class='line'>
+          <br>
+        </p>
+        <div id="canvas-ide" style="width: 700px;height:400px; margin-top: 0px;"></div>
+        <script>
+          const ideData = {
+            'VS Code': 231,
+            WebStorm: 60,
+            Vim: 27,
+            Sublime: 23,
+            'intellij IDEA': 21,
+            Emacs: 4,
+            Atom: 4,
+            Eclipse: 2,
+            '其他': 4,
+          };
+          tool = echarts.init(document.getElementById('canvas-ide'));
+          tool.setOption({
+            tooltip: {
+              trigger: 'axis',
+              axisPointer: {
+                type: 'shadow'
               },
-						{
-							'1人': 2,
-							'2-10人': 8,
-							'11-50人': 12,
-							'51-500人': 27,
-							'501-1000人': 6,
-							'1001-5000人': 22,
-							'大于 5000人': 39,
-							key: 'Docker'
-              },
-						{
-							'1人': 0,
-							'2-10人': 2,
-							'11-50人': 7,
-							'51-500人': 20,
-							'501-1000人': 7,
-							'1001-5000人': 16,
-							'大于 5000人': 29,
-							key: 'k8s'
-              },
-						{
-							'1人': 0,
-							'2-10人': 2,
-							'11-50人': 3,
-							'51-500人': 6,
-							'501-1000人': 0,
-							'1001-5000人': 1,
-							'大于 5000人': 19,
-							key: 'Serverless'
-              },
-						{
-							'1人': 1,
-							'2-10人': 1,
-							'11-50人': 3,
-							'51-500人': 4,
-							'501-1000人': 0,
-							'1001-5000人': 2,
-							'大于 5000人': 2,
-							key: 'supervisor (Node)'
-              },
-						{
-							'1人': 1,
-							'2-10人': 0,
-							'11-50人': 3,
-							'51-500人': 3,
-							'501-1000人': 1,
-							'1001-5000人': 0,
-							'大于 5000人': 4,
-							key: 'forever'
-              },
-						{
-							'1人': 0,
-							'2-10人': 0,
-							'11-50人': 1,
-							'51-500人': 1,
-							'501-1000人': 1,
-							'1001-5000人': 0,
-							'大于 5000人': 4,
-							key: '其他'
-              },
-						{
-							'1人': 0,
-							'2-10人': 0,
-							'11-50人': 0,
-							'51-500人': 0,
-							'501-1000人': 0,
-							'1001-5000人': 1,
-							'大于 5000人': 2,
-							key: 'Supervisord (Unix)'
-              },
-						{
-							'1人': 0,
-							'2-10人': 0,
-							'11-50人': 0,
-							'51-500人': 0,
-							'501-1000人': 0,
-							'1001-5000人': 0,
-							'大于 5000人': 1,
-							key: 'naught'
+              formatter: ([item]) => {
+                return (item.value / 258 * 100).toFixed(2) + '%';
               }
-              ]);
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h4 id="部署方式">
-					<a href="#部署方式">
-						<img src="assets/anchor.svg">
-					</a> 部署方式
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<div id="canvas-os" style="width: 700px; height:150px; margin-top: 0px;"></div>
-				<script>
-					const osData = {
-						'Docker 容器': 132,
-						'物理机': 96,
-						'虚拟机': 92,
-						'k8s 容器编排': 78,
-						'Serverless 平台': 48,
-					};
-					const osChart = echarts.init(document.getElementById('canvas-os'));
-					osChart.setOption({
-						tooltip: {
-							trigger: 'axis',
-							axisPointer: {
-								type: 'shadow'
-							},
-							formatter: ([item]) => {
-								return (item.value / 258 * 100).toFixed(2) + '%';
-							}
-						},
-						grid: [{
-							top: 50,
-							bottom: 100,
-							left: 10,
-							containLabel: true
+            },
+            grid: [{
+              top: 30,
+              bottom: 50,
+              left: 10,
+              containLabel: true
             }],
-						xAxis: {
-							type: 'value',
-						},
-						grid: [{
-							top: 0,
-							bottom: 0,
-							left: 10,
-							containLabel: true
+            xAxis: {
+              type: 'value',
+            },
+            grid: [{
+              top: 0,
+              bottom: 0,
+              left: 10,
+              containLabel: true
             }],
-						yAxis: {
-							type: 'category',
-							data: Object.keys(osData),
-							inverse: true
-						},
-						series: [{
-							name: '数据',
-							type: 'bar',
-							color: '#348335',
-							data: Object.keys(osData).map((key) => osData[key])
+            yAxis: {
+              type: 'category',
+              data: Object.keys(ideData),
+              inverse: true
+            },
+            series: [{
+              name: '数据',
+              type: 'bar',
+              color: '#91c7ae',
+              data: Object.keys(ideData).map((key) => ideData[key])
             }]
-					});
-					setTimeout(function() {
-						osChart.dispatchAction({
-							type: 'showTip',
-							seriesIndex: 0,
-							dataIndex: 0
-						});
-					}, 1000);
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h3 id="技术栈">
-					<a href="#技术栈">
-						<img src="assets/anchor.svg">
-					</a> 技术栈
-				</h3>
-				<p class='line'>
-					<span style="background-color: transparent;">
-						<br>
-					</span>
-				</p>
-				<p class='line'>一个典型的 Node.js Web 应用：</p>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>使用 Express/Koa 框架</li>
-					<li>使用 Mysql/MongoDB + Redis 数据</li>
-					<li>同时配置了 Nginx 作为反向代理</li>
-				</ul>
-				<p class='line'>
-					<br>
-				</p>
-				<h4 id="框架">
-					<a href="#框架">
-						<img src="assets/anchor.svg">
-					</a> Web 框架
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>Koa.js 与 Express.js 并列为最常见的框架。</li>
-					<li>此外较流行的 Web 框架分别有 Egg.js (44% <font color="green">6%↑</font>)、Nest.js (21% <font color="green">6%↑</font>)、Midway.js (17% <font
-							color="green">10%↑</font>) 和 Next.js (7% 0.3↓)。</li>
-				</ul>
-				<p class='line'>
-					<br>
-				</p>
-				<div id="canvas-web" style="width: 900px;height:650px; margin-top: 0px;"></div>
-				<script>
-					setChart('canvas-web', 2, {
-						text: '不同开发经验的 Noder 使用的 Web 框架',
-						bottom: 0,
-						left: '50%',
-						textAlign: 'center'
-					}, [
-						{ '0~1 年': 13, '1~3 年': 42, '3~5 年': 57, '5~10年': 24, key: 'Koa.js' },
-						{
-							'0~1 年': 20,
-							'1~3 年': 43,
-							'3~5 年': 41,
-							'5~10年': 31,
-							key: 'Express.js'
-                },
-						{ '0~1 年': 16, '1~3 年': 34, '3~5 年': 36, '5~10年': 29, key: 'Egg.js' },
-						{ '0~1 年': 6, '1~3 年': 14, '3~5 年': 25, '5~10年': 11, key: 'Nest.js' },
-						{
-							'0~1 年': 0,
-							'1~3 年': 13,
-							'3~5 年': 19,
-							'5~10年': 12,
-							key: 'Midway.js'
-                },
-						{ '0~1 年': 2, '1~3 年': 9, '3~5 年': 4, '5~10年': 4, key: 'Next.js' },
-						{ '0~1 年': 2, '1~3 年': 4, '3~5 年': 3, '5~10年': 2, key: 'Nuxt.js' },
-						{ '0~1 年': 0, '1~3 年': 2, '3~5 年': 2, '5~10年': 1, key: 'Fastify.js' },
-						{ '0~1 年': 1, '1~3 年': 0, '3~5 年': 2, '5~10年': 2, key: 'Restify.js' },
-						{
-							'0~1 年': 0,
-							'1~3 年': 0,
-							'3~5 年': 0,
-							'5~10年': 3,
-							key: 'Loopback.io'
-                },
-						{ '0~1 年': 0, '1~3 年': 1, '3~5 年': 0, '5~10年': 1, key: 'Hapi.js' },
-						{ '0~1 年': 0, '1~3 年': 1, '3~5 年': 0, '5~10年': 1, key: 'Sails.js' },
-						{ '0~1 年': 1, '1~3 年': 2, '3~5 年': 1, '5~10年': 3, key: '其他' }
-              ]);
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h4 id="数据库">
-					<a href="#数据库">
-						<img src="assets/anchor.svg">
-					</a> 数据库
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>相比去年的 TOP 3 数据： MySQL (79%)、MongoDB (60%) 和 Redis (49%)，今年的 Redis 反超了 MongoDB，看来大量的 Noder 已经意识到缓存的重要。</li>
-					<li>如果想要使其他替代 MySQL 的关联数据库的话，可以学习 PostgreSQL</li>
-				</ul>
-				<p class='line'>
-					<br>
-				</p>
-				<div id="canvas-db" style="width: 900px;height:650px; margin-top: 0px;"></div>
-				<script>
-					setChart('canvas-db', 2, {
-						text: '不同开发经验的 Noder 使用的数据库',
-						bottom: 0,
-						left: '50%',
-						textAlign: 'center'
-					}, [
-						{ '0~1 年': 31, '1~3 年': 61, '3~5 年': 69, '5~10年': 42, key: 'MySQL' },
-						{ '0~1 年': 9, '1~3 年': 43, '3~5 年': 64, '5~10年': 36, key: 'Redis' },
-						{
-							'0~1 年': 17,
-							'1~3 年': 46,
-							'3~5 年': 57,
-							'5~10年': 27,
-							key: 'MongoDB'
-  },
-						{
-							'0~1 年': 1,
-							'1~3 年': 11,
-							'3~5 年': 17,
-							'5~10年': 9,
-							key: 'PostgreSQL'
-  },
-						{ '0~1 年': 0, '1~3 年': 7, '3~5 年': 4, '5~10年': 5, key: 'SQLite' },
-						{ '0~1 年': 1, '1~3 年': 2, '3~5 年': 4, '5~10年': 4, key: 'SQL Server' },
-						{ '0~1 年': 0, '1~3 年': 1, '3~5 年': 2, '5~10年': 3, key: '自研' },
-						{ '0~1 年': 1, '1~3 年': 1, '3~5 年': 3, '5~10年': 1, key: 'TiDB' },
-						{ '0~1 年': 1, '1~3 年': 1, '3~5 年': 0, '5~10年': 2, key: 'Oracle' },
-						{ '0~1 年': 0, '1~3 年': 1, '3~5 年': 0, '5~10年': 1, key: 'HBASE' },
-						{ '0~1 年': 0, '1~3 年': 0, '3~5 年': 0, '5~10年': 2, key: 'DB2' },
-						{ '0~1 年': 0, '1~3 年': 0, '3~5 年': 0, '5~10年': 1, key: 'Influxdb' },
-						{ '0~1 年': 0, '1~3 年': 1, '3~5 年': 2, '5~10年': 2, key: '其他' }
-]);
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h4 id="反向代理">
-					<a href="#反向代理">
-						<img src="assets/anchor.svg">
-					</a> 反向代理
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>Noder 们对于反向代理的概念是约等于 Nginx 的。</li>
-					<li>越大的公司越倾向于使用云中间件。</li>
-				</ul>
-				<p class='line'>
-					<br>
-				</p>
-				<div id="canvas-nginx" style="width: 900px;height:650px; margin-top: 0px;"></div>
-				<script>
-					setChart('canvas-nginx', 2, {
-							text: '不同规模公司的反向代理',
-							bottom: 0,
-							left: '50%',
-							textAlign: 'center'
-						},
-              [
-							{
-								'1人': 3,
-								'2-10人': 15,
-								'11-50人': 38,
-								'51-500人': 64,
-								'501-1000人': 16,
-								'1001-5000人': 32,
-								'大于 5000人': 65,
-								key: 'Nginx'
-  },
-							{
-								'1人': 3,
-								'2-10人': 4,
-								'11-50人': 6,
-								'51-500人': 5,
-								'501-1000人': 2,
-								'1001-5000人': 0,
-								'大于 5000人': 9,
-								key: '不使用反向代理'
-  },
-							{
-								'1人': 0,
-								'2-10人': 1,
-								'11-50人': 2,
-								'51-500人': 5,
-								'501-1000人': 1,
-								'1001-5000人': 3,
-								'大于 5000人': 10,
-								key: '云中间件'
-  },
-							{
-								'1人': 0,
-								'2-10人': 0,
-								'11-50人': 0,
-								'51-500人': 0,
-								'501-1000人': 1,
-								'1001-5000人': 4,
-								'大于 5000人': 4,
-								key: 'Envoy'
-  },
-							{
-								'1人': 0,
-								'2-10人': 0,
-								'11-50人': 1,
-								'51-500人': 3,
-								'501-1000人': 0,
-								'1001-5000人': 3,
-								'大于 5000人': 2,
-								key: 'Apache'
-  },
-							{
-								'1人': 0,
-								'2-10人': 0,
-								'11-50人': 0,
-								'51-500人': 1,
-								'501-1000人': 1,
-								'1001-5000人': 0,
-								'大于 5000人': 3,
-								key: 'Tomcat'
-  },
-							{
-								'1人': 0,
-								'2-10人': 0,
-								'11-50人': 0,
-								'51-500人': 0,
-								'501-1000人': 0,
-								'1001-5000人': 0,
-								'大于 5000人': 1,
-								key: 'Linkerd'
-  },
-							{
-								'1人': 0,
-								'2-10人': 0,
-								'11-50人': 0,
-								'51-500人': 0,
-								'501-1000人': 0,
-								'1001-5000人': 0,
-								'大于 5000人': 1,
-								key: '其他'
-  }
-]);
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h4 id="RPC">
-					<a href="#RPC">
-						<img src="assets/anchor.svg">
-					</a> RPC
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>HTTP 是最常见的 RPC 方式，此外使用最多的是消息队列。</li>
-					<li>中型公司使用消息队列的比率最高。</li>
-					<li>大公司使用自研 RPC 协议的比率最高。</li>
-				</ul>
-				<p class='line'>
-					<br>
-				</p>
-				<div id="canvas-rpc" style="width: 900px;height:650px; margin-top: 0px;"></div>
-				<script>
-					setChart('canvas-rpc', 2, {
-							text: '不同规模公司的 RPC 方式',
-							bottom: 0,
-							left: '50%',
-							textAlign: 'center'
-						},
-              [
-							{
-								'1人': 4,
-								'2-10人': 11,
-								'11-50人': 23,
-								'51-500人': 49,
-								'501-1000人': 8,
-								'1001-5000人': 23,
-								'大于 5000人': 49,
-								key: 'HTTP'
-  },
-							{
-								'1人': 0,
-								'2-10人': 4,
-								'11-50人': 6,
-								'51-500人': 21,
-								'501-1000人': 3,
-								'1001-5000人': 9,
-								'大于 5000人': 17,
-								key: '消息队列'
-  },
-							{
-								'1人': 1,
-								'2-10人': 1,
-								'11-50人': 6,
-								'51-500人': 10,
-								'501-1000人': 8,
-								'1001-5000人': 13,
-								'大于 5000人': 19,
-								key: 'gRPC'
-  },
-							{
-								'1人': 2,
-								'2-10人': 5,
-								'11-50人': 13,
-								'51-500人': 17,
-								'501-1000人': 8,
-								'1001-5000人': 4,
-								'大于 5000人': 5,
-								key: '不使用 RPC'
-  },
-							{
-								'1人': 0,
-								'2-10人': 0,
-								'11-50人': 2,
-								'51-500人': 4,
-								'501-1000人': 1,
-								'1001-5000人': 3,
-								'大于 5000人': 24,
-								key: '自研 RPC 协议'
-  },
-							{
-								'1人': 0,
-								'2-10人': 0,
-								'11-50人': 0,
-								'51-500人': 3,
-								'501-1000人': 1,
-								'1001-5000人': 3,
-								'大于 5000人': 12,
-								key: 'dubbo'
-  },
-							{
-								'1人': 0,
-								'2-10人': 1,
-								'11-50人': 2,
-								'51-500人': 1,
-								'501-1000人': 1,
-								'1001-5000人': 0,
-								'大于 5000人': 1,
-								key: '其他'
-  },
-							{
-								'1人': 0,
-								'2-10人': 0,
-								'11-50人': 0,
-								'51-500人': 0,
-								'501-1000人': 0,
-								'1001-5000人': 1,
-								'大于 5000人': 2,
-								key: 'Thrift'
-  }
-]);
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h3 id="开发生态">
-					<a href="#开发生态">
-						<img src="assets/anchor.svg">
-					</a> 开发生态
-				</h3>
-				<h4 id="版本">
-					<a href="#版本">
-						<img src="assets/anchor.svg">
-					</a> Node 版本
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>在 2021 年，开发者们普遍使用 14.x 或 12.x。</li>
-					<li>除了 NPM, 最流行的管理工具主要是 yarn 以及 cnpm。</li>
-					<li>约 60% 的开发者在使用 LTS 版本（或以上）的 Node.js。</li>
-				</ul>
-				<p class='line'>
-					<br>
-				</p>
-				<div id="canvas-version" style="width: 500px;height:350px; margin-top: 0px;"></div>
-				<script>
-					const verData = {
-						'8.x': 5,
-						'12.x': 79,
-						'10.x': 27,
-						'14.x': 115,
-						'16.x': 32,
-					};
-					echarts.init(document.getElementById('canvas-version')).setOption({
-						title: {
-							text: 'Node.js 各版本使用情况',
-							subtext: '单数版本自动计入下一偶数版本',
-							bottom: 0,
-							left: '50%',
-							textAlign: 'center',
-						},
-						tooltip: {
-							trigger: 'item',
-							formatter: 'v{b} ({d}%)'
-						},
-						legend: {
-							orient: 'vertical',
-							left: 'left',
-							data: Object.keys(verData)
-						},
-						series: [
-							{
-								name: '访问来源',
-								type: 'pie',
-								radius: '55%',
-								center: ['50%', '40%'],
-								data: Object.keys(verData).map((name) => ({ name, value: verData[name] })),
-								emphasis: {
-									itemStyle: {
-										shadowBlur: 10,
-										shadowOffsetX: 0,
-										shadowColor: 'rgba(0, 0, 0, 0.5)'
-									}
-								}
+          });
+          setTimeout(function() {
+            tool.dispatchAction({
+              type: 'showTip',
+              seriesIndex: 0, // 显示第几个series
+              dataIndex: 0 // 显示第几个数据
+            });
+          });
+        </script>
+        <h4 id="进程管理">
+          <a href="#进程管理">
+            <img src="assets/anchor.svg">
+          </a> 进程管理
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>K8s & Docker 已经十分流行了。</li>
+          <li>中型公司使用 PM2 的比例更高。</li>
+          <li>规模越小越乐于尝试 Serverless 的部署方式。</li>
+        </ul>
+        <p class='line'>
+          <br>
+        </p>
+        <div id="canvas-process" style="width: 1100px;height:650px; margin-top: 0px;"></div>
+        <script>
+          setChart('canvas-process', 2, {
+            text: '不同规模公司使用的进程管理方式',
+            bottom: 0,
+            left: '50%',
+            textAlign: 'center'
+          }, [
+            {
+              '1人': 3,
+              '2-10人': 10,
+              '11-50人': 29,
+              '51-500人': 43,
+              '501-1000人': 15,
+              '1001-5000人': 22,
+              '大于 5000人': 31,
+              key: 'PM2'
+            },
+            {
+              '1人': 2,
+              '2-10人': 8,
+              '11-50人': 12,
+              '51-500人': 27,
+              '501-1000人': 6,
+              '1001-5000人': 22,
+              '大于 5000人': 39,
+              key: 'Docker'
+            },
+            {
+              '1人': 0,
+              '2-10人': 2,
+              '11-50人': 7,
+              '51-500人': 20,
+              '501-1000人': 7,
+              '1001-5000人': 16,
+              '大于 5000人': 29,
+              key: 'k8s'
+            },
+            {
+              '1人': 0,
+              '2-10人': 2,
+              '11-50人': 3,
+              '51-500人': 6,
+              '501-1000人': 0,
+              '1001-5000人': 1,
+              '大于 5000人': 19,
+              key: 'Serverless'
+            },
+            {
+              '1人': 1,
+              '2-10人': 1,
+              '11-50人': 3,
+              '51-500人': 4,
+              '501-1000人': 0,
+              '1001-5000人': 2,
+              '大于 5000人': 2,
+              key: 'supervisor (Node)'
+            },
+            {
+              '1人': 1,
+              '2-10人': 0,
+              '11-50人': 3,
+              '51-500人': 3,
+              '501-1000人': 1,
+              '1001-5000人': 0,
+              '大于 5000人': 4,
+              key: 'forever'
+            },
+            {
+              '1人': 0,
+              '2-10人': 0,
+              '11-50人': 1,
+              '51-500人': 1,
+              '501-1000人': 1,
+              '1001-5000人': 0,
+              '大于 5000人': 4,
+              key: '其他'
+            },
+            {
+              '1人': 0,
+              '2-10人': 0,
+              '11-50人': 0,
+              '51-500人': 0,
+              '501-1000人': 0,
+              '1001-5000人': 1,
+              '大于 5000人': 2,
+              key: 'Supervisord (Unix)'
+            },
+            {
+              '1人': 0,
+              '2-10人': 0,
+              '11-50人': 0,
+              '51-500人': 0,
+              '501-1000人': 0,
+              '1001-5000人': 0,
+              '大于 5000人': 1,
+              key: 'naught'
+            }
+          ]);
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h4 id="部署方式">
+          <a href="#部署方式">
+            <img src="assets/anchor.svg">
+          </a> 部署方式
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <div id="canvas-os" style="width: 700px; height:150px; margin-top: 0px;"></div>
+        <script>
+          const osData = {
+            'Docker 容器': 132,
+            '物理机': 96,
+            '虚拟机': 92,
+            'k8s 容器编排': 78,
+            'Serverless 平台': 48,
+          };
+          const osChart = echarts.init(document.getElementById('canvas-os'));
+          osChart.setOption({
+            tooltip: {
+              trigger: 'axis',
+              axisPointer: {
+                type: 'shadow'
+              },
+              formatter: ([item]) => {
+                return (item.value / 258 * 100).toFixed(2) + '%';
+              }
+            },
+            grid: [{
+              top: 50,
+              bottom: 100,
+              left: 10,
+              containLabel: true
+            }],
+            xAxis: {
+              type: 'value',
+            },
+            grid: [{
+              top: 0,
+              bottom: 0,
+              left: 10,
+              containLabel: true
+            }],
+            yAxis: {
+              type: 'category',
+              data: Object.keys(osData),
+              inverse: true
+            },
+            series: [{
+              name: '数据',
+              type: 'bar',
+              color: '#348335',
+              data: Object.keys(osData).map((key) => osData[key])
+            }]
+          });
+          setTimeout(function() {
+            osChart.dispatchAction({
+              type: 'showTip',
+              seriesIndex: 0,
+              dataIndex: 0
+            });
+          }, 1000);
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h3 id="技术栈">
+          <a href="#技术栈">
+            <img src="assets/anchor.svg">
+          </a> 技术栈
+        </h3>
+        <p class='line'>
+          <span style="background-color: transparent;">
+            <br>
+          </span>
+        </p>
+        <p class='line'>一个典型的 Node.js Web 应用：</p>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>使用 Express/Koa 框架</li>
+          <li>使用 Mysql/MongoDB + Redis 数据</li>
+          <li>同时配置了 Nginx 作为反向代理</li>
+        </ul>
+        <p class='line'>
+          <br>
+        </p>
+        <h4 id="框架">
+          <a href="#框架">
+            <img src="assets/anchor.svg">
+          </a>Web 框架
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>Koa.js 与 Express.js 并列为最常见的框架。</li>
+          <li>此外较流行的 Web 框架分别有 Egg.js (44% <font color="green">6%↑</font>)、Nest.js (21% <font color="green">6%↑</font>)、Midway.js (17% <font color="green">10%↑</font>) 和 Next.js (7% 0.3↓)。</li>
+        </ul>
+        <p class='line'>
+          <br>
+        </p>
+        <div id="canvas-web" style="width: 900px;height:650px; margin-top: 0px;"></div>
+        <script>
+          setChart('canvas-web', 2, {
+            text: '不同开发经验的 Noder 使用的 Web 框架',
+            bottom: 0,
+            left: '50%',
+            textAlign: 'center'
+          }, [
+            { '0~1 年': 13, '1~3 年': 42, '3~5 年': 57, '5~10年': 24, key: 'Koa.js' },
+            {
+              '0~1 年': 20,
+              '1~3 年': 43,
+              '3~5 年': 41,
+              '5~10年': 31,
+              key: 'Express.js'
+            },
+            { '0~1 年': 16, '1~3 年': 34, '3~5 年': 36, '5~10年': 29, key: 'Egg.js' },
+            { '0~1 年': 6, '1~3 年': 14, '3~5 年': 25, '5~10年': 11, key: 'Nest.js' },
+            {
+              '0~1 年': 0,
+              '1~3 年': 13,
+              '3~5 年': 19,
+              '5~10年': 12,
+              key: 'Midway.js'
+            },
+            { '0~1 年': 2, '1~3 年': 9, '3~5 年': 4, '5~10年': 4, key: 'Next.js' },
+            { '0~1 年': 2, '1~3 年': 4, '3~5 年': 3, '5~10年': 2, key: 'Nuxt.js' },
+            { '0~1 年': 0, '1~3 年': 2, '3~5 年': 2, '5~10年': 1, key: 'Fastify.js' },
+            { '0~1 年': 1, '1~3 年': 0, '3~5 年': 2, '5~10年': 2, key: 'Restify.js' },
+            {
+              '0~1 年': 0,
+              '1~3 年': 0,
+              '3~5 年': 0,
+              '5~10年': 3,
+              key: 'Loopback.io'
+            },
+            { '0~1 年': 0, '1~3 年': 1, '3~5 年': 0, '5~10年': 1, key: 'Hapi.js' },
+            { '0~1 年': 0, '1~3 年': 1, '3~5 年': 0, '5~10年': 1, key: 'Sails.js' },
+            { '0~1 年': 1, '1~3 年': 2, '3~5 年': 1, '5~10年': 3, key: '其他' }
+          ]);
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h4 id="数据库">
+          <a href="#数据库">
+            <img src="assets/anchor.svg">
+          </a> 数据库
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>相比去年的 TOP 3 数据： MySQL (79%)、MongoDB (60%) 和 Redis (49%)，今年的 Redis 反超了 MongoDB，看来大量的 Noder 已经意识到缓存的重要。</li>
+          <li>如果想要使其他替代 MySQL 的关联数据库的话，可以学习 PostgreSQL</li>
+        </ul>
+        <p class='line'>
+          <br>
+        </p>
+        <div id="canvas-db" style="width: 900px;height:650px; margin-top: 0px;"></div>
+        <script>
+          setChart('canvas-db', 2, {
+            text: '不同开发经验的 Noder 使用的数据库',
+            bottom: 0,
+            left: '50%',
+            textAlign: 'center'
+          }, [
+            { '0~1 年': 31, '1~3 年': 61, '3~5 年': 69, '5~10年': 42, key: 'MySQL' },
+            { '0~1 年': 9, '1~3 年': 43, '3~5 年': 64, '5~10年': 36, key: 'Redis' },
+            {
+              '0~1 年': 17,
+              '1~3 年': 46,
+              '3~5 年': 57,
+              '5~10年': 27,
+              key: 'MongoDB'
+            },
+            {
+              '0~1 年': 1,
+              '1~3 年': 11,
+              '3~5 年': 17,
+              '5~10年': 9,
+              key: 'PostgreSQL'
+            },
+            { '0~1 年': 0, '1~3 年': 7, '3~5 年': 4, '5~10年': 5, key: 'SQLite' },
+            { '0~1 年': 1, '1~3 年': 2, '3~5 年': 4, '5~10年': 4, key: 'SQL Server' },
+            { '0~1 年': 0, '1~3 年': 1, '3~5 年': 2, '5~10年': 3, key: '自研' },
+            { '0~1 年': 1, '1~3 年': 1, '3~5 年': 3, '5~10年': 1, key: 'TiDB' },
+            { '0~1 年': 1, '1~3 年': 1, '3~5 年': 0, '5~10年': 2, key: 'Oracle' },
+            { '0~1 年': 0, '1~3 年': 1, '3~5 年': 0, '5~10年': 1, key: 'HBASE' },
+            { '0~1 年': 0, '1~3 年': 0, '3~5 年': 0, '5~10年': 2, key: 'DB2' },
+            { '0~1 年': 0, '1~3 年': 0, '3~5 年': 0, '5~10年': 1, key: 'Influxdb' },
+            { '0~1 年': 0, '1~3 年': 1, '3~5 年': 2, '5~10年': 2, key: '其他' }
+          ]);
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h4 id="反向代理">
+          <a href="#反向代理">
+            <img src="assets/anchor.svg">
+          </a> 反向代理
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>Noder 们对于反向代理的概念是约等于 Nginx 的。</li>
+          <li>越大的公司越倾向于使用云中间件。</li>
+        </ul>
+        <p class='line'>
+          <br>
+        </p>
+        <div id="canvas-nginx" style="width: 900px;height:650px; margin-top: 0px;"></div>
+        <script>
+          setChart('canvas-nginx', 2, {
+              text: '不同规模公司的反向代理',
+              bottom: 0,
+              left: '50%',
+              textAlign: 'center'
+            },
+            [{
+              '1人': 3,
+              '2-10人': 15,
+              '11-50人': 38,
+              '51-500人': 64,
+              '501-1000人': 16,
+              '1001-5000人': 32,
+              '大于 5000人': 65,
+              key: 'Nginx'
+            },
+            {
+              '1人': 3,
+              '2-10人': 4,
+              '11-50人': 6,
+              '51-500人': 5,
+              '501-1000人': 2,
+              '1001-5000人': 0,
+              '大于 5000人': 9,
+              key: '不使用反向代理'
+            },
+            {
+              '1人': 0,
+              '2-10人': 1,
+              '11-50人': 2,
+              '51-500人': 5,
+              '501-1000人': 1,
+              '1001-5000人': 3,
+              '大于 5000人': 10,
+              key: '云中间件'
+            },
+            {
+              '1人': 0,
+              '2-10人': 0,
+              '11-50人': 0,
+              '51-500人': 0,
+              '501-1000人': 1,
+              '1001-5000人': 4,
+              '大于 5000人': 4,
+              key: 'Envoy'
+            },
+            {
+              '1人': 0,
+              '2-10人': 0,
+              '11-50人': 1,
+              '51-500人': 3,
+              '501-1000人': 0,
+              '1001-5000人': 3,
+              '大于 5000人': 2,
+              key: 'Apache'
+            },
+            {
+              '1人': 0,
+              '2-10人': 0,
+              '11-50人': 0,
+              '51-500人': 1,
+              '501-1000人': 1,
+              '1001-5000人': 0,
+              '大于 5000人': 3,
+              key: 'Tomcat'
+            },
+            {
+              '1人': 0,
+              '2-10人': 0,
+              '11-50人': 0,
+              '51-500人': 0,
+              '501-1000人': 0,
+              '1001-5000人': 0,
+              '大于 5000人': 1,
+              key: 'Linkerd'
+            },
+            {
+              '1人': 0,
+              '2-10人': 0,
+              '11-50人': 0,
+              '51-500人': 0,
+              '501-1000人': 0,
+              '1001-5000人': 0,
+              '大于 5000人': 1,
+              key: '其他'
+            }
+          ]);
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h4 id="RPC">
+          <a href="#RPC">
+            <img src="assets/anchor.svg">
+          </a> RPC
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>HTTP 是最常见的 RPC 方式，此外使用最多的是消息队列。</li>
+          <li>中型公司使用消息队列的比率最高。</li>
+          <li>大公司使用自研 RPC 协议的比率最高。</li>
+        </ul>
+        <p class='line'>
+          <br>
+        </p>
+        <div id="canvas-rpc" style="width: 900px;height:650px; margin-top: 0px;"></div>
+        <script>
+          setChart('canvas-rpc', 2, {
+              text: '不同规模公司的 RPC 方式',
+              bottom: 0,
+              left: '50%',
+              textAlign: 'center'
+            },
+            [{
+              '1人': 4,
+              '2-10人': 11,
+              '11-50人': 23,
+              '51-500人': 49,
+              '501-1000人': 8,
+              '1001-5000人': 23,
+              '大于 5000人': 49,
+              key: 'HTTP'
+            },
+            {
+              '1人': 0,
+              '2-10人': 4,
+              '11-50人': 6,
+              '51-500人': 21,
+              '501-1000人': 3,
+              '1001-5000人': 9,
+              '大于 5000人': 17,
+              key: '消息队列'
+            },
+            {
+              '1人': 1,
+              '2-10人': 1,
+              '11-50人': 6,
+              '51-500人': 10,
+              '501-1000人': 8,
+              '1001-5000人': 13,
+              '大于 5000人': 19,
+              key: 'gRPC'
+            },
+            {
+              '1人': 2,
+              '2-10人': 5,
+              '11-50人': 13,
+              '51-500人': 17,
+              '501-1000人': 8,
+              '1001-5000人': 4,
+              '大于 5000人': 5,
+              key: '不使用 RPC'
+            },
+            {
+              '1人': 0,
+              '2-10人': 0,
+              '11-50人': 2,
+              '51-500人': 4,
+              '501-1000人': 1,
+              '1001-5000人': 3,
+              '大于 5000人': 24,
+              key: '自研 RPC 协议'
+            },
+            {
+              '1人': 0,
+              '2-10人': 0,
+              '11-50人': 0,
+              '51-500人': 3,
+              '501-1000人': 1,
+              '1001-5000人': 3,
+              '大于 5000人': 12,
+              key: 'dubbo'
+            },
+            {
+              '1人': 0,
+              '2-10人': 1,
+              '11-50人': 2,
+              '51-500人': 1,
+              '501-1000人': 1,
+              '1001-5000人': 0,
+              '大于 5000人': 1,
+              key: '其他'
+            },
+            {
+              '1人': 0,
+              '2-10人': 0,
+              '11-50人': 0,
+              '51-500人': 0,
+              '501-1000人': 0,
+              '1001-5000人': 1,
+              '大于 5000人': 2,
+              key: 'Thrift'
+            }
+          ]);
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h3 id="开发生态">
+          <a href="#开发生态">
+            <img src="assets/anchor.svg">
+          </a> 开发生态
+        </h3>
+        <h4 id="版本">
+          <a href="#版本">
+            <img src="assets/anchor.svg">
+          </a> Node 版本
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>在 2021 年，开发者们普遍使用 14.x 或 12.x。</li>
+          <li>除了 NPM, 最流行的管理工具主要是 yarn 以及 cnpm。</li>
+          <li>约 60% 的开发者在使用 LTS 版本（或以上）的 Node.js。</li>
+        </ul>
+        <p class='line'>
+          <br>
+        </p>
+        <div id="canvas-version" style="width: 500px;height:350px; margin-top: 0px;"></div>
+        <script>
+          const verData = {
+            '8.x': 5,
+            '12.x': 79,
+            '10.x': 27,
+            '14.x': 115,
+            '16.x': 32,
+          };
+          echarts.init(document.getElementById('canvas-version')).setOption({
+            title: {
+              text: 'Node.js 各版本使用情况',
+              subtext: '单数版本自动计入下一偶数版本',
+              bottom: 0,
+              left: '50%',
+              textAlign: 'center',
+            },
+            tooltip: {
+              trigger: 'item',
+              formatter: 'v{b} ({d}%)'
+            },
+            legend: {
+              orient: 'vertical',
+              left: 'left',
+              data: Object.keys(verData)
+            },
+            series: [
+              {
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '40%'],
+                data: Object.keys(verData).map((name) => ({ name, value: verData[name] })),
+                emphasis: {
+                  itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
                   }
-              ]
-					});
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h4 id="依赖管理">
-					<a href="#依赖管理">
-						<img src="assets/anchor.svg">
-					</a> 依赖管理
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>老司机更喜欢 cnpm, 年轻人中 yarn 更流行。</li>
-					<li>随着开发经验的增加，开发者会更多的试图寻找 NPM 以外的依赖管理工具。</li>
-				</ul>
-				<p class='line'>
-					<br>
-				</p>
-				<div id="canvas-npm" style="width: 900px;height:650px; margin-top: 0px;"></div>
-				<script>
-					setChart('canvas-npm', 2, {
-						text: '不同 Node 开发经验使用的依赖管理工具',
-						bottom: 0,
-						left: '50%',
-						textAlign: 'center'
-					}, [
-						{ '0~1 年': 35, '1~3 年': 70, '3~5 年': 82, '5~10年': 51, key: 'npm' },
-						{ '0~1 年': 14, '1~3 年': 48, '3~5 年': 43, '5~10年': 25, key: 'yarn' },
-						{ '0~1 年': 11, '1~3 年': 26, '3~5 年': 31, '5~10年': 23, key: 'cnpm' },
-						{ '0~1 年': 1, '1~3 年': 2, '3~5 年': 5, '5~10年': 1, key: 'pnpm' },
-						{ '0~1 年': 0, '1~3 年': 1, '3~5 年': 1, '5~10年': 1, key: 'bower' },
-						{ '0~1 年': 0, '1~3 年': 1, '3~5 年': 0, '5~10年': 1, key: 'Duo' },
-						{ '0~1 年': 0, '1~3 年': 0, '3~5 年': 0, '5~10年': 1, key: 'JSPM' },
-						{ '0~1 年': 0, '1~3 年': 0, '3~5 年': 1, '5~10年': 1, key: '其他' }
-]);
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h4 id="镜像">
-					<a href="#镜像">
-						<img src="assets/anchor.svg">
-					</a> NPM 镜像
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>接近 80% 的开发者会通过公司部署私有镜像或自行配置来加速 npm 依赖下载</li>
-					<li>公司规模越大自行部署私有镜像的概率越高</li>
-				</ul>
-				<div id="canvas-image" style="width: 700px;height:450px; margin-top: 10px;"></div>
-				<script>
-					const npmData = {
-						'有使用镜像加速': 106,
-						'公司部署了私有镜像': 98,
-						'不了解/没有使用': 49,
-						'其他': 5
-					};
-					echarts.init(document.getElementById('canvas-image')).setOption({
-						title: {
-							text: 'NPM 镜像加速情况',
-							bottom: 0,
-							left: '50%',
-							textAlign: 'center',
-						},
-						tooltip: {
-							trigger: 'item',
-							formatter: 'v{b} ({d}%)'
-						},
-						legend: {
-							orient: 'vertical',
-							left: 'left',
-							data: Object.keys(npmData)
-						},
-						series: [
-							{
-								name: '访问来源',
-								type: 'pie',
-								radius: '55%',
-								center: ['50%', '40%'],
-								data: Object.keys(npmData).map((name) => ({ name, value: npmData[name] })),
-								emphasis: {
-									itemStyle: {
-										shadowBlur: 10,
-										shadowOffsetX: 0,
-										shadowColor: 'rgba(0, 0, 0, 0.5)'
-									}
-								}
+                }
+              }
+            ]
+          });
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h4 id="依赖管理">
+          <a href="#依赖管理">
+            <img src="assets/anchor.svg">
+          </a> 依赖管理
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>老司机更喜欢 cnpm, 年轻人中 yarn 更流行。</li>
+          <li>随着开发经验的增加，开发者会更多的试图寻找 NPM 以外的依赖管理工具。</li>
+        </ul>
+        <p class='line'>
+          <br>
+        </p>
+        <div id="canvas-npm" style="width: 900px;height:650px; margin-top: 0px;"></div>
+        <script>
+          setChart('canvas-npm', 2, {
+            text: '不同 Node 开发经验使用的依赖管理工具',
+            bottom: 0,
+            left: '50%',
+            textAlign: 'center'
+          }, [
+            { '0~1 年': 35, '1~3 年': 70, '3~5 年': 82, '5~10年': 51, key: 'npm' },
+            { '0~1 年': 14, '1~3 年': 48, '3~5 年': 43, '5~10年': 25, key: 'yarn' },
+            { '0~1 年': 11, '1~3 年': 26, '3~5 年': 31, '5~10年': 23, key: 'cnpm' },
+            { '0~1 年': 1, '1~3 年': 2, '3~5 年': 5, '5~10年': 1, key: 'pnpm' },
+            { '0~1 年': 0, '1~3 年': 1, '3~5 年': 1, '5~10年': 1, key: 'bower' },
+            { '0~1 年': 0, '1~3 年': 1, '3~5 年': 0, '5~10年': 1, key: 'Duo' },
+            { '0~1 年': 0, '1~3 年': 0, '3~5 年': 0, '5~10年': 1, key: 'JSPM' },
+            { '0~1 年': 0, '1~3 年': 0, '3~5 年': 1, '5~10年': 1, key: '其他' }
+          ]);
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h4 id="镜像">
+          <a href="#镜像">
+            <img src="assets/anchor.svg">
+          </a> NPM 镜像
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>接近 80% 的开发者会通过公司部署私有镜像或自行配置来加速 npm 依赖下载</li>
+          <li>公司规模越大自行部署私有镜像的概率越高</li>
+        </ul>
+        <div id="canvas-image" style="width: 700px;height:450px; margin-top: 10px;"></div>
+        <script>
+          const npmData = {
+            '有使用镜像加速': 106,
+            '公司部署了私有镜像': 98,
+            '不了解/没有使用': 49,
+            '其他': 5
+          };
+          echarts.init(document.getElementById('canvas-image')).setOption({
+            title: {
+              text: 'NPM 镜像加速情况',
+              bottom: 0,
+              left: '50%',
+              textAlign: 'center',
+            },
+            tooltip: {
+              trigger: 'item',
+              formatter: 'v{b} ({d}%)'
+            },
+            legend: {
+              orient: 'vertical',
+              left: 'left',
+              data: Object.keys(npmData)
+            },
+            series: [
+              {
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '40%'],
+                data: Object.keys(npmData).map((name) => ({ name, value: npmData[name] })),
+                emphasis: {
+                  itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
                   }
-              ]
-					});
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<p class='line'>
-					<br>
-				</p>
-				<p class='line'>
-					<br>
-				</p>
-				<h3 id="学习提升">
-					<a href="#学习提升">
-						<img src="assets/anchor.svg">
-					</a> 学习提升
-				</h3>
-				<p class='line'>
-					<br>
-				</p>
-				<h4 id="学习途径">
-					<a href="#学习途径">
-						<img src="assets/anchor.svg">
-					</a> 学习途径
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>老司机更多的从开源代码 (Github & NPM) 来学习 Node.js。</li>
-					<li>新同学相比之下会更多的通过学习视频以及博客 & 期刊等渠道学习。</li>
-					<li>相比去年，网上的资料变多了通过购买书籍来学习 Node.js 的下降了 13.5%。</li>
-				</ul>
-				<p class='line'>
-					<br>
-				</p>
-				<div id="canvas-study" style="width: 900px;height:650px; margin-top: 0px;"></div>
-				<script>
-					setChart('canvas-study', 2, {
-							text: '不同从业经验的学习途径',
-							bottom: 0,
-							left: '50%',
-							textAlign: 'center'
-						},
+                }
+              }
+            ]
+          });
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <p class='line'>
+          <br>
+        </p>
+        <p class='line'>
+          <br>
+        </p>
+        <h3 id="学习提升">
+          <a href="#学习提升">
+            <img src="assets/anchor.svg">
+          </a> 学习提升
+        </h3>
+        <p class='line'>
+          <br>
+        </p>
+        <h4 id="学习途径">
+          <a href="#学习途径">
+            <img src="assets/anchor.svg">
+          </a> 学习途径
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>老司机更多的从开源代码 (Github & NPM) 来学习 Node.js。</li>
+          <li>新同学相比之下会更多的通过学习视频以及博客 & 期刊等渠道学习。</li>
+          <li>相比去年，网上的资料变多了通过购买书籍来学习 Node.js 的下降了 13.5%。</li>
+        </ul>
+        <p class='line'>
+          <br>
+        </p>
+        <div id="canvas-study" style="width: 900px;height:650px; margin-top: 0px;"></div>
+        <script>
+          setChart('canvas-study', 2, {
+              text: '不同从业经验的学习途径',
+              bottom: 0,
+              left: '50%',
+              textAlign: 'center'
+            },
               [
-							{
-								'小于 1 年': 6,
-								'1 到 3 年': 34,
-								'3 到 5 年': 75,
-								'5 到 10 年': 80,
-								'大于 10 年': 23,
-								key: '开源代码'
-  },
-							{
-								'小于 1 年': 5,
-								'1 到 3 年': 25,
-								'3 到 5 年': 58,
-								'5 到 10 年': 60,
-								'大于 10 年': 18,
-								key: '技术社区'
-  },
-							{
-								'小于 1 年': 4,
-								'1 到 3 年': 30,
-								'3 到 5 年': 55,
-								'5 到 10 年': 55,
-								'大于 10 年': 15,
-								key: '博客 & 期刊'
-  },
-							{
-								'小于 1 年': 7,
-								'1 到 3 年': 21,
-								'3 到 5 年': 43,
-								'5 到 10 年': 40,
-								'大于 10 年': 14,
-								key: '搜索引擎'
-  },
-							{
-								'小于 1 年': 3,
-								'1 到 3 年': 19,
-								'3 到 5 年': 33,
-								'5 到 10 年': 33,
-								'大于 10 年': 12,
-								key: '书籍'
-  },
-							{
-								'小于 1 年': 8,
-								'1 到 3 年': 21,
-								'3 到 5 年': 19,
-								'5 到 10 年': 15,
-								'大于 10 年': 6,
-								key: '视频教程 (无指导)'
-  },
-							{
-								'小于 1 年': 5,
-								'1 到 3 年': 12,
-								'3 到 5 年': 17,
-								'5 到 10 年': 9,
-								'大于 10 年': 3,
-								key: '在线课程'
-  },
-							{
-								'小于 1 年': 1,
-								'1 到 3 年': 2,
-								'3 到 5 年': 13,
-								'5 到 10 年': 15,
-								'大于 10 年': 4,
-								key: '公司'
-  },
-							{
-								'小于 1 年': 0,
-								'1 到 3 年': 1,
-								'3 到 5 年': 9,
-								'5 到 10 年': 6,
-								'大于 10 年': 4,
-								key: '线下活动'
-  },
-							{
-								'小于 1 年': 0,
-								'1 到 3 年': 1,
-								'3 到 5 年': 1,
-								'5 到 10 年': 0,
-								'大于 10 年': 1,
-								key: '其他'
-  }
-]);
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h4 id="使用困惑">
-					<a href="#使用困惑">
-						<img src="assets/anchor.svg">
-					</a> 使用困惑
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>今年使用困惑的 Top 3 分别是性能优化 (57% 0.6%↓)、内存泄漏 (43% 1%↑) 以及 node_modules 依赖（25% 3%↑）。</li>
-					<li>新人更容易面临的困惑 Top 3 分别是: 异步编程、事件驱动以及 Debug。</li>
-					<li>随着开发经验的增加，内存泄漏的比例也逐步上升。</li>
-				</ul>
-				<p class='line'>
-					<br>
-				</p>
-				<div id="canvas-confused" style="width: 900px;height:650px; margin-top: 0px;"></div>
-				<script>
-					setChart('canvas-confused', 2, {
-						text: '不同 Node.js 开发经验的使用困惑',
-						bottom: 0,
-						left: '50%',
-						textAlign: 'center'
-					}, [
-						{ '0~1 年': 23, '1~3 年': 52, '3~5 年': 48, '5~10年': 25, key: '性能优化' },
-						{ '0~1 年': 17, '1~3 年': 35, '3~5 年': 38, '5~10年': 23, key: '内存泄漏' },
-						{ '0~1 年': 15, '1~3 年': 18, '3~5 年': 18, '5~10年': 15, key: 'node_modules 依赖' },
-						{ '0~1 年': 14, '1~3 年': 16, '3~5 年': 13, '5~10年': 11, key: '错误提示' },
-						{ '0~1 年': 15, '1~3 年': 15, '3~5 年': 15, '5~10年': 8, key: 'Debug' },
-						{ '0~1 年': 11, '1~3 年': 15, '3~5 年': 6, '5~10年': 5, key: '事件驱动' },
-						{ '0~1 年': 14, '1~3 年': 18, '3~5 年': 3, '5~10年': 3, key: '异步编程' },
-						{ '0~1 年': 1, '1~3 年': 1, '3~5 年': 6, '5~10年': 6, key: '其他' }
-]);
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h4 id="资源需求">
-					<a href="#资源需求">
-						<img src="assets/anchor.svg">
-					</a> 资源需求
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>文档是大家最期待的资源。</li>
-					<li>新同学对视频教程和免费在线课程的呼声最高。</li>
-					<li>随着开发经验的增加，更加关注大会活动以及沙龙。</li>
-				</ul>
-				<p class='line'>
-					<br>
-				</p>
-				<div id="canvas-res" style="width: 900px;height:650px; margin-top: 0px;"></div>
-				<script>
-					setChart('canvas-res', 2, {
-						text: '不同 Node 开发经验的需求资源',
-						bottom: 0,
-						left: '50%',
-						textAlign: 'center'
-					}, [
-						{ '0~1 年': 30, '1~3 年': 56, '3~5 年': 62, '5~10年': 35, key: '文档' },
-						{ '0~1 年': 23, '1~3 年': 47, '3~5 年': 30, '5~10年': 21, key: '实战案例' },
-						{ '0~1 年': 19, '1~3 年': 29, '3~5 年': 25, '5~10年': 18, key: '技术博主' },
-						{ '0~1 年': 16, '1~3 年': 35, '3~5 年': 18, '5~10年': 8, key: '教程视频' },
-						{ '0~1 年': 17, '1~3 年': 29, '3~5 年': 20, '5~10年': 7, key: '免费在线课程' },
-						{ '0~1 年': 8, '1~3 年': 19, '3~5 年': 19, '5~10年': 12, key: '线下沙龙分享' },
-						{ '0~1 年': 6, '1~3 年': 14, '3~5 年': 9, '5~10年': 15, key: '大会演讲视频' },
-						{ '0~1 年': 4, '1~3 年': 15, '3~5 年': 7, '5~10年': 5, key: '线下编码活动' },
-						{ '0~1 年': 4, '1~3 年': 10, '3~5 年': 6, '5~10年': 10, key: '大会活动' },
-						{ '0~1 年': 0, '1~3 年': 2, '3~5 年': 3, '5~10年': 3, key: '其他' }
-]);
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h4 id="未来关键字">
-					<a href="#未来关键字">
-						<img src="assets/anchor.svg">
-					</a> 未来关键字
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>从业经验越高则越关注 WebAssembly (WASI) 和 N-API。</li>
-					<li>越年轻的同学越关注 Serverless。</li>
-				</ul>
-				<p class='line'>
-					<br>
-				</p>
-				<div id="canvas-key" style="width: 800px;height:650px; margin-top: 0px;"></div>
-				<script>
-					setChart('canvas-key', 2, {
-						text: '不同从业经验的关注关键词',
-						bottom: 0,
-						left: '50%',
-						textAlign: 'center'
-					}, [
-						{
-							'小于 1 年': 7,
-							'1 到 3 年': 31,
-							'3 到 5 年': 45,
-							'5 到 10 年': 38,
-							'大于 10 年': 11,
-							key: '多线程'
-  },
-						{
-							'小于 1 年': 5,
-							'1 到 3 年': 19,
-							'3 到 5 年': 46,
-							'5 到 10 年': 44,
-							'大于 10 年': 13,
-							key: 'Serverless'
-  },
-						{
-							'小于 1 年': 4,
-							'1 到 3 年': 17,
-							'3 到 5 年': 35,
-							'5 到 10 年': 39,
-							'大于 10 年': 13,
-							key: 'WASI'
-  },
-						{
-							'小于 1 年': 3,
-							'1 到 3 年': 10,
-							'3 到 5 年': 17,
-							'5 到 10 年': 20,
-							'大于 10 年': 7,
-							key: 'Async Hooks'
-  },
-						{
-							'小于 1 年': 0,
-							'1 到 3 年': 18,
-							'3 到 5 年': 19,
-							'5 到 10 年': 14,
-							'大于 10 年': 5,
-							key: 'Deno'
-  },
-						{
-							'小于 1 年': 0,
-							'1 到 3 年': 6,
-							'3 到 5 年': 15,
-							'5 到 10 年': 18,
-							'大于 10 年': 6,
-							key: 'N-API'
-  },
-						{
-							'小于 1 年': 1,
-							'1 到 3 年': 6,
-							'3 到 5 年': 12,
-							'5 到 10 年': 14,
-							'大于 10 年': 4,
-							key: 'Code cache & AOT'
-  },
-						{
-							'小于 1 年': 1,
-							'1 到 3 年': 1,
-							'3 到 5 年': 3,
-							'5 到 10 年': 3,
-							'大于 10 年': 1,
-							key: '其他'
-  }
-]);
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h4 id="生态期望">
-					<a href="#生态期望">
-						<img src="assets/anchor.svg">
-					</a> 生态期望
-				</h4>
-				<p class='line'>
-					<br>
-				</p>
-				<ul lake-indent="0" class="list">
-					<li>相比去年，今年的 Noder 开始更多的关系维护成本 & 生态繁荣（更多人参与）。</li>
-					<li>不满 1 年的开发者更关心学习成本，年限越长越关心维护成本。</li>
-				</ul>
-				<p class='line'>
-					<br>
-				</p>
-				<div id="canvas-eco" style="width: 800px;height:650px; margin-top: 0px;"></div>
-				<script>
-					setChart('canvas-eco', 2, {
-						text: '不同从业经验的关注关键词',
-						bottom: 0,
-						left: '50%',
-						textAlign: 'center'
-					}, [
-						{ '0~1 年': 21, '1~3 年': 49, '3~5 年': 46, '5~10年': 27, key: '更好的性能' },
-						{
-							'0~1 年': 18,
-							'1~3 年': 45,
-							'3~5 年': 41,
-							'5~10年': 24,
-							key: '更高的开发效率'
-  },
-						{ '0~1 年': 15, '1~3 年': 38, '3~5 年': 35, '5~10年': 31, key: '更容易维护' },
-						{ '0~1 年': 15, '1~3 年': 28, '3~5 年': 48, '5~10年': 25, key: '更多的人参与' },
-						{
-							'0~1 年': 16,
-							'1~3 年': 18,
-							'3~5 年': 15,
-							'5~10年': 10,
-							key: '更低的学习成本'
-  },
-						{ '0~1 年': 0, '1~3 年': 0, '3~5 年': 1, '5~10年': 1, key: '其他' }
-]);
-				</script>
-				<p class='line'>
-					<br>
-				</p>
-				<h3 id="最后">
-					<a href="#最后">
-						<img src="assets/anchor.svg">
-					</a> 最后
-				</h3>
-				<p class='line'>
-					<br>同样的数据在不同的人眼里可以衍生出不同的看法，本报告内的解读仅供参考。
-				</p>
-			</div>
-		</div>
-	</body>
+              {
+                '小于 1 年': 6,
+                '1 到 3 年': 34,
+                '3 到 5 年': 75,
+                '5 到 10 年': 80,
+                '大于 10 年': 23,
+                key: '开源代码'
+              },
+              {
+                '小于 1 年': 5,
+                '1 到 3 年': 25,
+                '3 到 5 年': 58,
+                '5 到 10 年': 60,
+                '大于 10 年': 18,
+                key: '技术社区'
+              },
+              {
+                '小于 1 年': 4,
+                '1 到 3 年': 30,
+                '3 到 5 年': 55,
+                '5 到 10 年': 55,
+                '大于 10 年': 15,
+                key: '博客 & 期刊'
+              },
+              {
+                '小于 1 年': 7,
+                '1 到 3 年': 21,
+                '3 到 5 年': 43,
+                '5 到 10 年': 40,
+                '大于 10 年': 14,
+                key: '搜索引擎'
+              },
+              {
+                '小于 1 年': 3,
+                '1 到 3 年': 19,
+                '3 到 5 年': 33,
+                '5 到 10 年': 33,
+                '大于 10 年': 12,
+                key: '书籍'
+              },
+              {
+                '小于 1 年': 8,
+                '1 到 3 年': 21,
+                '3 到 5 年': 19,
+                '5 到 10 年': 15,
+                '大于 10 年': 6,
+                key: '视频教程 (无指导)'
+              },
+              {
+                '小于 1 年': 5,
+                '1 到 3 年': 12,
+                '3 到 5 年': 17,
+                '5 到 10 年': 9,
+                '大于 10 年': 3,
+                key: '在线课程'
+              },
+              {
+                '小于 1 年': 1,
+                '1 到 3 年': 2,
+                '3 到 5 年': 13,
+                '5 到 10 年': 15,
+                '大于 10 年': 4,
+                key: '公司'
+              },
+              {
+                '小于 1 年': 0,
+                '1 到 3 年': 1,
+                '3 到 5 年': 9,
+                '5 到 10 年': 6,
+                '大于 10 年': 4,
+                key: '线下活动'
+              },
+              {
+                '小于 1 年': 0,
+                '1 到 3 年': 1,
+                '3 到 5 年': 1,
+                '5 到 10 年': 0,
+                '大于 10 年': 1,
+                key: '其他'
+              }
+            ]);
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h4 id="使用困惑">
+          <a href="#使用困惑">
+            <img src="assets/anchor.svg">
+          </a> 使用困惑
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>今年使用困惑的 Top 3 分别是性能优化 (57% 0.6%↓)、内存泄漏 (43% 1%↑) 以及 node_modules 依赖（25% 3%↑）。</li>
+          <li>新人更容易面临的困惑 Top 3 分别是: 异步编程、事件驱动以及 Debug。</li>
+          <li>随着开发经验的增加，内存泄漏的比例也逐步上升。</li>
+        </ul>
+        <p class='line'>
+          <br>
+        </p>
+        <div id="canvas-confused" style="width: 900px;height:650px; margin-top: 0px;"></div>
+        <script>
+          setChart('canvas-confused', 2, {
+            text: '不同 Node.js 开发经验的使用困惑',
+            bottom: 0,
+            left: '50%',
+            textAlign: 'center'
+          }, [
+            { '0~1 年': 23, '1~3 年': 52, '3~5 年': 48, '5~10年': 25, key: '性能优化' },
+            { '0~1 年': 17, '1~3 年': 35, '3~5 年': 38, '5~10年': 23, key: '内存泄漏' },
+            { '0~1 年': 15, '1~3 年': 18, '3~5 年': 18, '5~10年': 15, key: 'node_modules 依赖' },
+            { '0~1 年': 14, '1~3 年': 16, '3~5 年': 13, '5~10年': 11, key: '错误提示' },
+            { '0~1 年': 15, '1~3 年': 15, '3~5 年': 15, '5~10年': 8, key: 'Debug' },
+            { '0~1 年': 11, '1~3 年': 15, '3~5 年': 6, '5~10年': 5, key: '事件驱动' },
+            { '0~1 年': 14, '1~3 年': 18, '3~5 年': 3, '5~10年': 3, key: '异步编程' },
+            { '0~1 年': 1, '1~3 年': 1, '3~5 年': 6, '5~10年': 6, key: '其他' }
+          ]);
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h4 id="资源需求">
+          <a href="#资源需求">
+            <img src="assets/anchor.svg">
+          </a> 资源需求
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>文档是大家最期待的资源。</li>
+          <li>新同学对视频教程和免费在线课程的呼声最高。</li>
+          <li>随着开发经验的增加，更加关注大会活动以及沙龙。</li>
+        </ul>
+        <p class='line'>
+          <br>
+        </p>
+        <div id="canvas-res" style="width: 900px;height:650px; margin-top: 0px;"></div>
+        <script>
+          setChart('canvas-res', 2, {
+            text: '不同 Node 开发经验的需求资源',
+            bottom: 0,
+            left: '50%',
+            textAlign: 'center'
+          }, [
+            { '0~1 年': 30, '1~3 年': 56, '3~5 年': 62, '5~10年': 35, key: '文档' },
+            { '0~1 年': 23, '1~3 年': 47, '3~5 年': 30, '5~10年': 21, key: '实战案例' },
+            { '0~1 年': 19, '1~3 年': 29, '3~5 年': 25, '5~10年': 18, key: '技术博主' },
+            { '0~1 年': 16, '1~3 年': 35, '3~5 年': 18, '5~10年': 8, key: '教程视频' },
+            { '0~1 年': 17, '1~3 年': 29, '3~5 年': 20, '5~10年': 7, key: '免费在线课程' },
+            { '0~1 年': 8, '1~3 年': 19, '3~5 年': 19, '5~10年': 12, key: '线下沙龙分享' },
+            { '0~1 年': 6, '1~3 年': 14, '3~5 年': 9, '5~10年': 15, key: '大会演讲视频' },
+            { '0~1 年': 4, '1~3 年': 15, '3~5 年': 7, '5~10年': 5, key: '线下编码活动' },
+            { '0~1 年': 4, '1~3 年': 10, '3~5 年': 6, '5~10年': 10, key: '大会活动' },
+            { '0~1 年': 0, '1~3 年': 2, '3~5 年': 3, '5~10年': 3, key: '其他' }
+          ]);
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h4 id="未来关键字">
+          <a href="#未来关键字">
+            <img src="assets/anchor.svg">
+          </a> 未来关键字
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>从业经验越高则越关注 WebAssembly (WASI) 和 N-API。</li>
+          <li>越年轻的同学越关注 Serverless。</li>
+        </ul>
+        <p class='line'>
+          <br>
+        </p>
+        <div id="canvas-key" style="width: 800px;height:650px; margin-top: 0px;"></div>
+        <script>
+          setChart('canvas-key', 2, {
+            text: '不同从业经验的关注关键词',
+            bottom: 0,
+            left: '50%',
+            textAlign: 'center'
+          }, [
+            {
+              '小于 1 年': 7,
+              '1 到 3 年': 31,
+              '3 到 5 年': 45,
+              '5 到 10 年': 38,
+              '大于 10 年': 11,
+              key: '多线程'
+            },
+            {
+              '小于 1 年': 5,
+              '1 到 3 年': 19,
+              '3 到 5 年': 46,
+              '5 到 10 年': 44,
+              '大于 10 年': 13,
+              key: 'Serverless'
+            },
+            {
+              '小于 1 年': 4,
+              '1 到 3 年': 17,
+              '3 到 5 年': 35,
+              '5 到 10 年': 39,
+              '大于 10 年': 13,
+              key: 'WASI'
+            },
+            {
+              '小于 1 年': 3,
+              '1 到 3 年': 10,
+              '3 到 5 年': 17,
+              '5 到 10 年': 20,
+              '大于 10 年': 7,
+              key: 'Async Hooks'
+            },
+            {
+              '小于 1 年': 0,
+              '1 到 3 年': 18,
+              '3 到 5 年': 19,
+              '5 到 10 年': 14,
+              '大于 10 年': 5,
+              key: 'Deno'
+            },
+            {
+              '小于 1 年': 0,
+              '1 到 3 年': 6,
+              '3 到 5 年': 15,
+              '5 到 10 年': 18,
+              '大于 10 年': 6,
+              key: 'N-API'
+            },
+            {
+              '小于 1 年': 1,
+              '1 到 3 年': 6,
+              '3 到 5 年': 12,
+              '5 到 10 年': 14,
+              '大于 10 年': 4,
+              key: 'Code cache & AOT'
+            },
+            {
+              '小于 1 年': 1,
+              '1 到 3 年': 1,
+              '3 到 5 年': 3,
+              '5 到 10 年': 3,
+              '大于 10 年': 1,
+              key: '其他'
+            }
+          ]);
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h4 id="生态期望">
+          <a href="#生态期望">
+            <img src="assets/anchor.svg">
+          </a> 生态期望
+        </h4>
+        <p class='line'>
+          <br>
+        </p>
+        <ul lake-indent="0" class="list">
+          <li>相比去年，今年的 Noder 开始更多的关系维护成本 & 生态繁荣（更多人参与）。</li>
+          <li>不满 1 年的开发者更关心学习成本，年限越长越关心维护成本。</li>
+        </ul>
+        <p class='line'>
+          <br>
+        </p>
+        <div id="canvas-eco" style="width: 800px;height:650px; margin-top: 0px;"></div>
+        <script>
+          setChart('canvas-eco', 2, {
+            text: '不同从业经验的关注关键词',
+            bottom: 0,
+            left: '50%',
+            textAlign: 'center'
+          }, [
+            { '0~1 年': 21, '1~3 年': 49, '3~5 年': 46, '5~10年': 27, key: '更好的性能' },
+            {
+              '0~1 年': 18,
+              '1~3 年': 45,
+              '3~5 年': 41,
+              '5~10年': 24,
+              key: '更高的开发效率'
+            },
+            { '0~1 年': 15, '1~3 年': 38, '3~5 年': 35, '5~10年': 31, key: '更容易维护' },
+            { '0~1 年': 15, '1~3 年': 28, '3~5 年': 48, '5~10年': 25, key: '更多的人参与' },
+            {
+              '0~1 年': 16,
+              '1~3 年': 18,
+              '3~5 年': 15,
+              '5~10年': 10,
+              key: '更低的学习成本'
+            },
+            { '0~1 年': 0, '1~3 年': 0, '3~5 年': 1, '5~10年': 1, key: '其他' }
+          ]);
+        </script>
+        <p class='line'>
+          <br>
+        </p>
+        <h3 id="最后">
+          <a href="#最后">
+            <img src="assets/anchor.svg">
+          </a> 最后
+        </h3>
+        <p class='line'>
+          <br>同样的数据在不同的人眼里可以衍生出不同的看法，本报告内的解读仅供参考。
+        </p>
+      </div>
+    </div>
+  </body>
 </html>
